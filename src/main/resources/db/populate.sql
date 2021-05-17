@@ -15,6 +15,6 @@ VALUES (1, false, 1111111111111111),
        (3, true, 3456786543211111),
        (4, true, 3456786543666666);
 
-INSERT INTO payment(amount, owner_account_id, counterparty_id)
+INSERT INTO payment(amount, account_owner_id, counterparty_id)
 VALUES (100.00, 2, 3),
        (1000.00, 3, 2);
