@@ -3,7 +3,6 @@ package org.sberbank.simonov.bank.data;
 import org.sberbank.simonov.bank.model.Account;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 import static java.math.RoundingMode.DOWN;
 import static org.sberbank.simonov.bank.data.UserTestData.*;

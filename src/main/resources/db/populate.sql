@@ -18,3 +18,5 @@ VALUES (1, false, 1111111111111111),
 INSERT INTO payment(amount, account_owner_id, counterparty_id)
 VALUES (100.00, 2, 3),
        (1000.00, 3, 2);
+
+SELECT * FROM CARD JOIN ACCOUNT A on A.ID = CARD.ACCOUNT_ID WHERE USER_ID = 1;
