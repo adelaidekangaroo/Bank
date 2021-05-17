@@ -11,7 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.sberbank.simonov.bank.data.UserTestData.*;
 
-public class UserRepositoryImplTest extends RepositoryTest {
+public class UserInitRepositoryImplTest extends InitRepositoryTest {
 
     private final UserRepository repository = new UserRepositoryImpl();
 

@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.sberbank.simonov.bank.data.AccountTestData.*;
 
-public class AccountRepositoryImplTest extends RepositoryTest {
+public class AccountInitRepositoryImplTest extends InitRepositoryTest {
 
     private final AccountRepository repository = new AccountRepositoryImpl();
 

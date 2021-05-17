@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.sberbank.simonov.bank.data.PaymentTestData.*;
 
-public class PaymentRepositoryImplTest extends RepositoryTest {
+public class PaymentInitRepositoryImplTest extends InitRepositoryTest {
 
     private final PaymentRepository repository = new PaymentRepositoryImpl();
 

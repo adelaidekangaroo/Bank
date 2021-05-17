@@ -21,19 +21,13 @@ public class CardRepositoryImpl implements CardRepository, Parcelable<Card> {
             boolean isExecuted;
             if (card.hasId()) {
                 try (PreparedStatement statement = connection.prepareStatement(UPDATE)) {
-                    statement.setInt(1, card.getAccountId());
-                    statement.setBoolean(2, card.isActive());
-                    statement.setBoolean(3, card.isConfirmed());
-                    statement.setLong(4, card.getNumber());
+                    parseToStatement(statement, card);
                     statement.setInt(5, card.getId());
                     isExecuted = statement.executeUpdate() > 0;
                 }
             } else {
                 try (PreparedStatement statement = connection.prepareStatement(INSERT)) {
-                    statement.setInt(1, card.getAccountId());
-                    statement.setBoolean(2, card.isActive());
-                    statement.setBoolean(3, card.isConfirmed());
-                    statement.setLong(4, card.getNumber());
+                    parseToStatement(statement, card);
                     isExecuted = statement.executeUpdate() > 0;
                 }
             }
@@ -101,6 +95,10 @@ public class CardRepositoryImpl implements CardRepository, Parcelable<Card> {
 
     @Override
     public PreparedStatement parseToStatement(PreparedStatement statement, Card object) throws SQLException {
-        return null;
+        statement.setInt(1, object.getAccountId());
+        statement.setBoolean(2, object.isActive());
+        statement.setBoolean(3, object.isConfirmed());
+        statement.setLong(4, object.getNumber());
+        return statement;
     }
 }

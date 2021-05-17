@@ -6,11 +6,11 @@ public abstract class ConfirmedEntity extends BaseEntity {
 
     protected boolean isConfirmed = false;
 
-    public ConfirmedEntity(Integer id) {
+    protected ConfirmedEntity(Integer id) {
         super(id);
     }
 
-    public ConfirmedEntity(Integer id, boolean isConfirmed) {
+    protected ConfirmedEntity(Integer id, boolean isConfirmed) {
         super(id);
         this.isConfirmed = isConfirmed;
     }

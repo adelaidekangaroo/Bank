@@ -1,5 +1,9 @@
 package org.sberbank.simonov.bank.repository.jdbc.util;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,6 +18,16 @@ public class DbConfig {
     private static final String DATABASE_PASSWORD = "root";
 
     private DbConfig() {
+    }
+
+    public static void initDb() {
+        try {
+            String init = new String(Files.readAllBytes(Paths.get("src/main/resources/db/init.sql")))
+            + new String(Files.readAllBytes(Paths.get("src/main/resources/db/populate.sql")));
+            executeScript(init);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void executeScript(String script) {

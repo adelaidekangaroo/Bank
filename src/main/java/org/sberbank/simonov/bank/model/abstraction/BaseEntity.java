@@ -3,9 +3,10 @@ package org.sberbank.simonov.bank.model.abstraction;
 import java.util.Objects;
 
 public abstract class BaseEntity {
+
     protected Integer id;
 
-    public BaseEntity(Integer id) {
+    protected BaseEntity(Integer id) {
         this.id = id;
     }
 

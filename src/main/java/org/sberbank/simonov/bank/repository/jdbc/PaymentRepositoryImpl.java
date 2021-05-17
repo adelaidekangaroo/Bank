@@ -21,19 +21,13 @@ public class PaymentRepositoryImpl implements PaymentRepository, Parcelable<Paym
             boolean isExecuted;
             if (payment.hasId()) {
                 try (PreparedStatement statement = connection.prepareStatement(UPDATE)) {
-                    statement.setBigDecimal(1, payment.getAmount());
-                    statement.setInt(2, payment.getAccountOwnerId());
-                    statement.setInt(3, payment.getCounterpartyId());
-                    statement.setBoolean(4, payment.isConfirmed());
+                    parseToStatement(statement, payment);
                     statement.setInt(5, payment.getId());
                     isExecuted = statement.executeUpdate() > 0;
                 }
             } else {
                 try (PreparedStatement statement = connection.prepareStatement(INSERT)) {
-                    statement.setBigDecimal(1, payment.getAmount());
-                    statement.setInt(2, payment.getAccountOwnerId());
-                    statement.setInt(3, payment.getCounterpartyId());
-                    statement.setBoolean(4, payment.isConfirmed());
+                    parseToStatement(statement, payment);
                     isExecuted = statement.executeUpdate() > 0;
                 }
             }
@@ -85,6 +79,10 @@ public class PaymentRepositoryImpl implements PaymentRepository, Parcelable<Paym
 
     @Override
     public PreparedStatement parseToStatement(PreparedStatement statement, Payment object) throws SQLException {
-        return null;
+        statement.setBigDecimal(1, object.getAmount());
+        statement.setInt(2, object.getAccountOwnerId());
+        statement.setInt(3, object.getCounterpartyId());
+        statement.setBoolean(4, object.isConfirmed());
+        return statement;
     }
 }
