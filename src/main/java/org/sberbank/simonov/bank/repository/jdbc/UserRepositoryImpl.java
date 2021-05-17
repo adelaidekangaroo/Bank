@@ -29,7 +29,6 @@ public class UserRepositoryImpl implements UserRepository, Parcelable<User> {
                 try (PreparedStatement statement = connection.prepareStatement(INSERT)) {
                     parseToStatement(statement, user);
                     isExecuted = statement.executeUpdate() > 0;
-                    System.out.println("IS " + isExecuted);
                 }
             }
             return isExecuted;

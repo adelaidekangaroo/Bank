@@ -1,4 +1,4 @@
-package org.sberbank.simonov.bank.repository.jdbc;
+package org.sberbank.simonov.bank.data;
 
 import org.sberbank.simonov.bank.model.User;
 

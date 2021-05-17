@@ -1,7 +1,6 @@
 package org.sberbank.simonov.bank.repository.jdbc;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.sberbank.simonov.bank.model.User;
 import org.sberbank.simonov.bank.repository.UserRepository;
@@ -10,19 +9,11 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
-import static org.sberbank.simonov.bank.repository.jdbc.Queries.INIT_DB;
-import static org.sberbank.simonov.bank.repository.jdbc.Queries.POPULATE;
-import static org.sberbank.simonov.bank.repository.jdbc.UserTestData.*;
+import static org.sberbank.simonov.bank.data.UserTestData.*;
 
-public class UserRepositoryImplTest {
+public class UserRepositoryImplTest extends RepositoryTest {
 
     private final UserRepository repository = new UserRepositoryImpl();
-
-    @Before
-    public void resetDb() {
-        DbConfig.executeScript(INIT_DB);
-        DbConfig.executeScript(POPULATE);
-    }
 
     @Test
     public void create() {
