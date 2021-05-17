@@ -1,4 +1,4 @@
-package org.sberbank.simonov.bank.repository.jdbc;
+package org.sberbank.simonov.bank.repository.jdbc.util;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

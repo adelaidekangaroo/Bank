@@ -4,6 +4,8 @@ import org.sberbank.simonov.bank.model.Role;
 import org.sberbank.simonov.bank.model.User;
 import org.sberbank.simonov.bank.model.UserType;
 import org.sberbank.simonov.bank.repository.UserRepository;
+import org.sberbank.simonov.bank.repository.jdbc.util.Parcelable;
+import org.sberbank.simonov.bank.repository.jdbc.util.QueryWrapper;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

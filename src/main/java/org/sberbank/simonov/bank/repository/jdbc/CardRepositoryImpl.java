@@ -2,6 +2,8 @@ package org.sberbank.simonov.bank.repository.jdbc;
 
 import org.sberbank.simonov.bank.model.Card;
 import org.sberbank.simonov.bank.repository.CardRepository;
+import org.sberbank.simonov.bank.repository.jdbc.util.Parcelable;
+import org.sberbank.simonov.bank.repository.jdbc.util.QueryWrapper;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

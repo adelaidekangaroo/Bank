@@ -1,7 +1,7 @@
 package org.sberbank.simonov.bank.repository.jdbc;
 
-import org.sberbank.simonov.bank.model.Account;
-import org.sberbank.simonov.bank.repository.AccountRepository;
+import org.sberbank.simonov.bank.model.Payment;
+import org.sberbank.simonov.bank.repository.PaymentRepository;
 import org.sberbank.simonov.bank.repository.jdbc.util.Parcelable;
 import org.sberbank.simonov.bank.repository.jdbc.util.QueryWrapper;
 
@@ -11,25 +11,29 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccountRepositoryImpl implements AccountRepository, Parcelable<Account> {
+public class PaymentRepositoryImpl implements PaymentRepository, Parcelable<Payment> {
 
     private final QueryWrapper wrapper = new QueryWrapper();
 
     @Override
-    public boolean save(Account account, int userId) {
+    public boolean save(Payment payment) {
         return wrapper.wrap(connection -> {
             boolean isExecuted;
-            if (account.hasId()) {
+            if (payment.hasId()) {
                 try (PreparedStatement statement = connection.prepareStatement(UPDATE)) {
-                    statement.setBigDecimal(1, account.getAmount());
-                    statement.setInt(2, account.getId());
-                    statement.setInt(3, userId);
+                    statement.setBigDecimal(1, payment.getAmount());
+                    statement.setInt(2, payment.getAccountOwnerId());
+                    statement.setInt(3, payment.getCounterpartyId());
+                    statement.setBoolean(4, payment.isConfirmed());
+                    statement.setInt(5, payment.getId());
                     isExecuted = statement.executeUpdate() > 0;
                 }
             } else {
                 try (PreparedStatement statement = connection.prepareStatement(INSERT)) {
-                    statement.setInt(1, userId);
-                    statement.setBigDecimal(2, account.getAmount());
+                    statement.setBigDecimal(1, payment.getAmount());
+                    statement.setInt(2, payment.getAccountOwnerId());
+                    statement.setInt(3, payment.getCounterpartyId());
+                    statement.setBoolean(4, payment.isConfirmed());
                     isExecuted = statement.executeUpdate() > 0;
                 }
             }
@@ -38,12 +42,11 @@ public class AccountRepositoryImpl implements AccountRepository, Parcelable<Acco
     }
 
     @Override
-    public Account getById(int id, int userId) {
+    public Payment getById(int id) {
         return wrapper.wrap(connection -> {
             try (PreparedStatement statement = connection.prepareStatement(GET_BY_ID)) {
                 statement.setInt(1, id);
-                statement.setInt(2, userId);
-                Account result = null;
+                Payment result = null;
                 try (ResultSet resultSet = statement.executeQuery()) {
                     while (resultSet.next()) {
                         result = parseFromResultSet(resultSet);
@@ -55,11 +58,10 @@ public class AccountRepositoryImpl implements AccountRepository, Parcelable<Acco
     }
 
     @Override
-    public List<Account> getAllByUser(int userId) {
+    public List<Payment> getAllUnconfirmed() {
         return wrapper.wrap(connection -> {
-            try (PreparedStatement statement = connection.prepareStatement(GET_ALL_BY_USER)) {
-                statement.setInt(1, userId);
-                List<Account> result = new ArrayList<>();
+            try (PreparedStatement statement = connection.prepareStatement(GET_ALL_UNCONFIRMED)) {
+                List<Payment> result = new ArrayList<>();
                 try (ResultSet resultSet = statement.executeQuery()) {
                     while (resultSet.next()) {
                         result.add(parseFromResultSet(resultSet));
@@ -71,16 +73,18 @@ public class AccountRepositoryImpl implements AccountRepository, Parcelable<Acco
     }
 
     @Override
-    public Account parseFromResultSet(ResultSet resultSet) throws SQLException {
-        return new Account(
+    public Payment parseFromResultSet(ResultSet resultSet) throws SQLException {
+        return new Payment(
                 resultSet.getInt("id"),
-                resultSet.getInt("user_id"),
-                resultSet.getBigDecimal("amount")
+                resultSet.getBigDecimal("amount"),
+                resultSet.getInt("account_owner_id"),
+                resultSet.getInt("counterparty_id"),
+                resultSet.getBoolean("is_confirmed")
         );
     }
 
     @Override
-    public PreparedStatement parseToStatement(PreparedStatement statement, Account object) throws SQLException {
-        return statement;
+    public PreparedStatement parseToStatement(PreparedStatement statement, Payment object) throws SQLException {
+        return null;
     }
 }
