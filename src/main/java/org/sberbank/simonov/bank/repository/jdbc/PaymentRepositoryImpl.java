@@ -48,11 +48,10 @@ public class PaymentRepositoryImpl implements PaymentRepository, Parcelable<Paym
     }
 
     @Override
-    public PreparedStatement parseToStatement(PreparedStatement statement, Payment object) throws SQLException {
+    public void parseToStatement(PreparedStatement statement, Payment object) throws SQLException {
         statement.setBigDecimal(1, object.getAmount());
         statement.setInt(2, object.getAccountOwnerId());
         statement.setInt(3, object.getCounterpartyId());
         statement.setBoolean(4, object.isConfirmed());
-        return statement;
     }
 }

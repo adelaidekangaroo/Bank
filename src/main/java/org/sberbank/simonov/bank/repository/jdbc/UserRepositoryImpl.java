@@ -50,12 +50,11 @@ public class UserRepositoryImpl implements UserRepository, Parcelable<User> {
     }
 
     @Override
-    public PreparedStatement parseToStatement(PreparedStatement statement, User user) throws SQLException {
+    public void parseToStatement(PreparedStatement statement, User user) throws SQLException {
         statement.setString(1, user.getLogin());
         statement.setString(2, user.getPassword());
         statement.setString(3, user.getFullName());
         statement.setString(4, user.getRole().toString());
         statement.setString(5, user.getUserType().toString());
-        return statement;
     }
 }

@@ -53,11 +53,10 @@ public class CardRepositoryImpl implements CardRepository, Parcelable<Card> {
     }
 
     @Override
-    public PreparedStatement parseToStatement(PreparedStatement statement, Card object) throws SQLException {
+    public void parseToStatement(PreparedStatement statement, Card object) throws SQLException {
         statement.setInt(1, object.getAccountId());
         statement.setBoolean(2, object.isActive());
         statement.setBoolean(3, object.isConfirmed());
         statement.setLong(4, object.getNumber());
-        return statement;
     }
 }

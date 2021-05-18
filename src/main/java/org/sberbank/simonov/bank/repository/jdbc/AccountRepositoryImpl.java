@@ -52,7 +52,6 @@ public class AccountRepositoryImpl implements AccountRepository, Parcelable<Acco
     }
 
     @Override
-    public PreparedStatement parseToStatement(PreparedStatement statement, Account object) throws SQLException {
-        return statement;
+    public void parseToStatement(PreparedStatement statement, Account object) throws SQLException {
     }
 }
