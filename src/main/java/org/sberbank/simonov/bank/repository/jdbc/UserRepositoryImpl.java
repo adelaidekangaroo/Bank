@@ -5,66 +5,36 @@ import org.sberbank.simonov.bank.model.User;
 import org.sberbank.simonov.bank.model.UserType;
 import org.sberbank.simonov.bank.repository.UserRepository;
 import org.sberbank.simonov.bank.repository.jdbc.util.Parcelable;
-import org.sberbank.simonov.bank.repository.jdbc.util.QueryWrapper;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+
+import static org.sberbank.simonov.bank.repository.jdbc.util.QueryWrapper.*;
 
 public class UserRepositoryImpl implements UserRepository, Parcelable<User> {
 
     @Override
     public boolean save(User user) {
-        return QueryWrapper.wrap(connection -> {
-            boolean isExecuted;
-            if (user.hasId()) {
-                try (PreparedStatement statement = connection.prepareStatement(UPDATE)) {
-                    parseToStatement(statement, user)
-                            .setInt(6, user.getId());
-                    isExecuted = statement.executeUpdate() > 0;
-                }
-            } else {
-                try (PreparedStatement statement = connection.prepareStatement(INSERT)) {
-                    parseToStatement(statement, user);
-                    isExecuted = statement.executeUpdate() > 0;
-                }
-            }
-            return isExecuted;
-        }, true);
+        if (user.hasId()) {
+            return saveWrap(statement -> {
+                parseToStatement(statement, user);
+                statement.setInt(6, user.getId());
+            }, UPDATE);
+        } else {
+            return saveWrap(statement -> parseToStatement(statement, user), INSERT);
+        }
     }
 
     @Override
     public List<User> getAllCounterparties(int currentUserId) {
-        return QueryWrapper.wrap(connection -> {
-            try (PreparedStatement statement = connection.prepareStatement(GET_ALL_COUNTERPARTIES)) {
-                statement.setInt(1, currentUserId);
-                List<User> result = new ArrayList<>();
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    while (resultSet.next()) {
-                        result.add(parseFromResultSet(resultSet));
-                    }
-                }
-                return result;
-            }
-        }, false);
+        return getListWrap(statement -> statement.setInt(1, currentUserId), this, GET_ALL_COUNTERPARTIES);
     }
 
     @Override
     public User getById(int id) {
-        return QueryWrapper.wrap(connection -> {
-            try (PreparedStatement statement = connection.prepareStatement(GET_BY_ID)) {
-                statement.setInt(1, id);
-                User result = null;
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    while (resultSet.next()) {
-                        result = parseFromResultSet(resultSet);
-                    }
-                }
-                return result;
-            }
-        }, false);
+        return getSingleWrap(statement -> statement.setInt(1, id), this, GET_BY_ID);
     }
 
     @Override

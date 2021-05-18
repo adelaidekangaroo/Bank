@@ -12,7 +12,7 @@ import java.util.List;
 import static org.sberbank.simonov.bank.data.CardTestData.*;
 import static org.sberbank.simonov.bank.data.UserTestData.USER_1;
 
-public class CardInitRepositoryImplTest extends InitRepositoryTest {
+public class CardRepositoryImplTest extends InitRepositoryTest {
 
     private final CardRepository repository = new CardRepositoryImpl();
 
