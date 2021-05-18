@@ -15,11 +15,9 @@ import java.util.List;
 
 public class UserRepositoryImpl implements UserRepository, Parcelable<User> {
 
-    private final QueryWrapper wrapper = new QueryWrapper();
-
     @Override
     public boolean save(User user) {
-        return wrapper.wrap(connection -> {
+        return QueryWrapper.wrap(connection -> {
             boolean isExecuted;
             if (user.hasId()) {
                 try (PreparedStatement statement = connection.prepareStatement(UPDATE)) {
@@ -39,7 +37,7 @@ public class UserRepositoryImpl implements UserRepository, Parcelable<User> {
 
     @Override
     public List<User> getAllCounterparties(int currentUserId) {
-        return wrapper.wrap(connection -> {
+        return QueryWrapper.wrap(connection -> {
             try (PreparedStatement statement = connection.prepareStatement(GET_ALL_COUNTERPARTIES)) {
                 statement.setInt(1, currentUserId);
                 List<User> result = new ArrayList<>();
@@ -55,7 +53,7 @@ public class UserRepositoryImpl implements UserRepository, Parcelable<User> {
 
     @Override
     public User getById(int id) {
-        return wrapper.wrap(connection -> {
+        return QueryWrapper.wrap(connection -> {
             try (PreparedStatement statement = connection.prepareStatement(GET_BY_ID)) {
                 statement.setInt(1, id);
                 User result = null;

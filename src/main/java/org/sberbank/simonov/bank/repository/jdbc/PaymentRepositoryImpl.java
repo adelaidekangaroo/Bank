@@ -13,11 +13,9 @@ import java.util.List;
 
 public class PaymentRepositoryImpl implements PaymentRepository, Parcelable<Payment> {
 
-    private final QueryWrapper wrapper = new QueryWrapper();
-
     @Override
     public boolean save(Payment payment) {
-        return wrapper.wrap(connection -> {
+        return QueryWrapper.wrap(connection -> {
             boolean isExecuted;
             if (payment.hasId()) {
                 try (PreparedStatement statement = connection.prepareStatement(UPDATE)) {
@@ -37,7 +35,7 @@ public class PaymentRepositoryImpl implements PaymentRepository, Parcelable<Paym
 
     @Override
     public Payment getById(int id) {
-        return wrapper.wrap(connection -> {
+        return QueryWrapper.wrap(connection -> {
             try (PreparedStatement statement = connection.prepareStatement(GET_BY_ID)) {
                 statement.setInt(1, id);
                 Payment result = null;
@@ -53,7 +51,7 @@ public class PaymentRepositoryImpl implements PaymentRepository, Parcelable<Paym
 
     @Override
     public List<Payment> getAllUnconfirmed() {
-        return wrapper.wrap(connection -> {
+        return QueryWrapper.wrap(connection -> {
             try (PreparedStatement statement = connection.prepareStatement(GET_ALL_UNCONFIRMED)) {
                 List<Payment> result = new ArrayList<>();
                 try (ResultSet resultSet = statement.executeQuery()) {

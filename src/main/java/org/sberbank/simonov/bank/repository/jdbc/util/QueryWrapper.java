@@ -5,7 +5,10 @@ import java.sql.SQLException;
 
 public class QueryWrapper {
 
-    public <T> T wrap(QueryExecutor<T> executor, boolean isTransaction) {
+    private QueryWrapper() {
+    }
+
+    public static <T> T wrap(QueryExecutor<T> executor, boolean isTransaction) {
         T result = null;
         try (Connection connection = DbConfig.getConnection()) {
             if (isTransaction) {

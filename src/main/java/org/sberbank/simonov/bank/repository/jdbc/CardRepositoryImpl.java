@@ -13,11 +13,9 @@ import java.util.List;
 
 public class CardRepositoryImpl implements CardRepository, Parcelable<Card> {
 
-    private final QueryWrapper wrapper = new QueryWrapper();
-
     @Override
     public boolean save(Card card) {
-        return wrapper.wrap(connection -> {
+        return QueryWrapper.wrap(connection -> {
             boolean isExecuted;
             if (card.hasId()) {
                 try (PreparedStatement statement = connection.prepareStatement(UPDATE)) {
@@ -37,7 +35,7 @@ public class CardRepositoryImpl implements CardRepository, Parcelable<Card> {
 
     @Override
     public Card getById(int id) {
-        return wrapper.wrap(connection -> {
+        return QueryWrapper.wrap(connection -> {
             try (PreparedStatement statement = connection.prepareStatement(GET_BY_ID)) {
                 statement.setInt(1, id);
                 Card result = null;
@@ -53,7 +51,7 @@ public class CardRepositoryImpl implements CardRepository, Parcelable<Card> {
 
     @Override
     public List<Card> getAllUnconfirmed() {
-        return wrapper.wrap(connection -> {
+        return QueryWrapper.wrap(connection -> {
             try (PreparedStatement statement = connection.prepareStatement(GET_ALL_UNCONFIRMED)) {
                 List<Card> result = new ArrayList<>();
                 try (ResultSet resultSet = statement.executeQuery()) {
@@ -68,7 +66,7 @@ public class CardRepositoryImpl implements CardRepository, Parcelable<Card> {
 
     @Override
     public List<Card> getAllByUser(int userId) {
-        return wrapper.wrap(connection -> {
+        return QueryWrapper.wrap(connection -> {
             try (PreparedStatement statement = connection.prepareStatement(GET_ALL_BY_USER)) {
                 statement.setInt(1, userId);
                 List<Card> result = new ArrayList<>();

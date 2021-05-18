@@ -13,11 +13,9 @@ import java.util.List;
 
 public class AccountRepositoryImpl implements AccountRepository, Parcelable<Account> {
 
-    private final QueryWrapper wrapper = new QueryWrapper();
-
     @Override
     public boolean save(Account account, int userId) {
-        return wrapper.wrap(connection -> {
+        return QueryWrapper.wrap(connection -> {
             boolean isExecuted;
             if (account.hasId()) {
                 try (PreparedStatement statement = connection.prepareStatement(UPDATE)) {
@@ -39,7 +37,7 @@ public class AccountRepositoryImpl implements AccountRepository, Parcelable<Acco
 
     @Override
     public Account getById(int id, int userId) {
-        return wrapper.wrap(connection -> {
+        return QueryWrapper.wrap(connection -> {
             try (PreparedStatement statement = connection.prepareStatement(GET_BY_ID)) {
                 statement.setInt(1, id);
                 statement.setInt(2, userId);
@@ -56,7 +54,7 @@ public class AccountRepositoryImpl implements AccountRepository, Parcelable<Acco
 
     @Override
     public List<Account> getAllByUser(int userId) {
-        return wrapper.wrap(connection -> {
+        return QueryWrapper.wrap(connection -> {
             try (PreparedStatement statement = connection.prepareStatement(GET_ALL_BY_USER)) {
                 statement.setInt(1, userId);
                 List<Account> result = new ArrayList<>();
