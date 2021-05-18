@@ -4,6 +4,7 @@ import org.sberbank.simonov.bank.model.Account;
 import org.sberbank.simonov.bank.repository.AccountRepository;
 import org.sberbank.simonov.bank.repository.jdbc.util.Parcelable;
 
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,19 +15,20 @@ import static org.sberbank.simonov.bank.repository.jdbc.util.QueryWrapper.*;
 public class AccountRepositoryImpl implements AccountRepository, Parcelable<Account> {
 
     @Override
-    public boolean save(Account account, int userId) {
-        if (account.hasId()) {
-            return saveWrap(statement -> {
-                statement.setBigDecimal(1, account.getAmount());
-                statement.setInt(2, account.getId());
-                statement.setInt(3, userId);
-            }, UPDATE);
-        } else {
-            return saveWrap(statement -> {
-                statement.setInt(1, userId);
-                statement.setBigDecimal(2, account.getAmount());
-            }, INSERT);
-        }
+    public boolean create(Account account, int userId) {
+        return saveWrap(statement -> {
+            statement.setInt(1, userId);
+            statement.setBigDecimal(2, account.getAmount());
+        }, INSERT);
+    }
+
+    @Override
+    public boolean update(BigDecimal amount, int id, int userId) {
+        return saveWrap(statement -> {
+            statement.setBigDecimal(1, amount);
+            statement.setInt(2, id);
+            statement.setInt(3, userId);
+        }, UPDATE);
     }
 
     @Override
@@ -52,6 +54,6 @@ public class AccountRepositoryImpl implements AccountRepository, Parcelable<Acco
     }
 
     @Override
-    public void parseToStatement(PreparedStatement statement, Account object) throws SQLException {
+    public void parseToStatement(PreparedStatement statement, Account object) {
     }
 }

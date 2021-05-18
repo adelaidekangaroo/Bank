@@ -14,24 +14,25 @@ public class QueryWrapper {
     private QueryWrapper() {
     }
 
-    public static <T> T wrap(QueryExecutor<T> executor, boolean isTransaction) {
-        T result = null;
+    public static <T> boolean wrap(QueryExecutor<T> executor, boolean isTransaction) {
+        boolean isExecuted = false;
         try (Connection connection = DbConfig.getConnection()) {
             if (isTransaction) {
                 try {
                     connection.setAutoCommit(false);
-                    result = executor.execute(connection);
+                    isExecuted = executor.execute(connection);
                     connection.commit();
-                } finally {
+                } catch (SQLException e) {
                     connection.rollback();
                 }
             } else {
-                result = executor.execute(connection);
+                isExecuted = executor.execute(connection);
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
-        return result;
+        return isExecuted;
     }
 
     public static boolean saveWrap(FillingStatement executor, String sql) {

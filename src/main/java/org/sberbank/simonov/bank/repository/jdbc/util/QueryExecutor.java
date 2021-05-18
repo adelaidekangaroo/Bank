@@ -4,5 +4,5 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public interface QueryExecutor<T> {
-    T execute(Connection connection) throws SQLException;
+    boolean execute(Connection connection) throws SQLException;
 }

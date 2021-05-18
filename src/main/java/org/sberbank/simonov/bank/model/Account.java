@@ -27,12 +27,22 @@ public class Account extends BaseEntity {
         this.amount = amount;
     }
 
+    public Account(Account other) {
+        super(other.id);
+        this.userId = other.userId;
+        this.amount = other.amount;
+    }
+
     public int getUserId() {
         return userId;
     }
 
     public BigDecimal getAmount() {
         return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 
     @Override

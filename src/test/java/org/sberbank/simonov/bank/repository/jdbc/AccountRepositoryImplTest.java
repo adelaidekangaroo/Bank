@@ -18,7 +18,7 @@ public class AccountRepositoryImplTest extends InitRepositoryTest {
     @Test
     public void create() {
         Account created = created();
-        repository.save(created, created.getUserId());
+        repository.create(created, created.getUserId());
         created.setId(NEW_ACCOUNT_ID);
         Account received = repository.getById(NEW_ACCOUNT_ID, created.getUserId());
         Assert.assertEquals(received, created);
@@ -27,7 +27,7 @@ public class AccountRepositoryImplTest extends InitRepositoryTest {
     @Test
     public void update() {
         Account updated = updated();
-        repository.save(updated, updated.getUserId());
+        repository.update(updated.getAmount(), updated.getId(), updated.getUserId());
         Account received = repository.getById(updated.getId(), updated.getUserId());
         Assert.assertEquals(received, updated);
     }
