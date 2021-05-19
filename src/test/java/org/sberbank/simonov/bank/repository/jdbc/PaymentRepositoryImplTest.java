@@ -32,9 +32,9 @@ public class PaymentRepositoryImplTest extends InitRepositoryTest {
     }
 
     @Test
-    public void confirmPayment() {
+    public void confirm() {
         Payment created = PaymentTestData.updated();
-        paymentRepository.confirmPayment(created);
+        paymentRepository.confirm(created);
         Payment received = paymentRepository.getById(created.getId());
 
         Account user = new Account(ACCOUNT_2);

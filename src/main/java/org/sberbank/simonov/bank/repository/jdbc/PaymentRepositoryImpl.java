@@ -26,7 +26,7 @@ public class PaymentRepositoryImpl implements PaymentRepository, Parcelable<Paym
     }
 
     @Override
-    public boolean confirmPayment(Payment payment) {
+    public boolean confirm(Payment payment) {
         return wrap(connection -> {
             boolean isExecuted;
             try (PreparedStatement ownerUpdateStatement = connection.prepareStatement(AccountRepository.UPDATE_WRITE_OFF)) {

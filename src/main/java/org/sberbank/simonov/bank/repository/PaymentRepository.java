@@ -13,7 +13,7 @@ public interface PaymentRepository {
 
     boolean create(Payment payment, int userId);
 
-    boolean confirmPayment(Payment payment);
+    boolean confirm(Payment payment);
 
     Payment getById(int id);
 

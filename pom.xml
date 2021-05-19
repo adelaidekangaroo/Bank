@@ -15,6 +15,7 @@
         <junit.version>4.13.2</junit.version>
         <hamcrest.version>2.2</hamcrest.version>
         <h2.version>1.4.200</h2.version>
+        <gson>2.8.6</gson>
     </properties>
 
     <dependencies>
@@ -37,6 +38,11 @@
             <artifactId>h2</artifactId>
             <version>${h2.version}</version>
         </dependency>
+        <!-- JSON -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson}</version>
+        </dependency>
     </dependencies>
-
 </project>
