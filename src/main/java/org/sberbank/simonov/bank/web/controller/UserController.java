@@ -30,7 +30,7 @@ public class UserController {
     public void create(HttpExchange exchange) throws IOException {
         User user = Context.getGson()
                 .fromJson(new InputStreamReader(exchange.getRequestBody()), User.class);
-        repository.save(user);
+        repository.create(user);
         exchange.sendResponseHeaders(201, -1);
         exchange.close();
     }

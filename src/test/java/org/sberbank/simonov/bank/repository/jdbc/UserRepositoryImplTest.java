@@ -18,18 +18,10 @@ public class UserRepositoryImplTest extends InitRepositoryTest {
     @Test
     public void create() {
         User created = created();
-        repository.save(created);
+        repository.create(created);
         created.setId(NEW_USER_ID);
         User received = repository.getById(NEW_USER_ID);
         Assert.assertEquals(received, created);
-    }
-
-    @Test
-    public void update() {
-        User updated = updated();
-        repository.save(updated);
-        User received = repository.getById(updated.getId());
-        Assert.assertEquals(received, updated);
     }
 
     @Test

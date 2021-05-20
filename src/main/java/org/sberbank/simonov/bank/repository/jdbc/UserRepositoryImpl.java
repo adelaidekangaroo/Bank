@@ -16,15 +16,8 @@ import static org.sberbank.simonov.bank.repository.jdbc.util.QueryWrapper.*;
 public class UserRepositoryImpl implements UserRepository, Parcelable<User> {
 
     @Override
-    public boolean save(User user) {
-        if (user.hasId()) {
-            return saveWrap(statement -> {
-                parseToStatement(statement, user);
-                statement.setInt(6, user.getId());
-            }, UPDATE);
-        } else {
-            return saveWrap(statement -> parseToStatement(statement, user), INSERT);
-        }
+    public boolean create(User user) {
+        return saveWrap(statement -> parseToStatement(statement, user), INSERT);
     }
 
     @Override

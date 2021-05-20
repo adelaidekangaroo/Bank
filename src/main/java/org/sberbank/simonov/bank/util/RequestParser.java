@@ -1,5 +1,7 @@
 package org.sberbank.simonov.bank.util;
 
+import com.sun.net.httpserver.HttpExchange;
+
 import java.util.*;
 
 public class RequestParser {
@@ -21,6 +23,10 @@ public class RequestParser {
             }
         }
         return result;
+    }
+
+    public static String getRelativePath(String context, HttpExchange exchange) {
+        return exchange.getRequestURI().getRawPath().substring(context.length());
     }
 
     public static AbstractMap.SimpleEntry<String, List<Integer>> getPathTokens(String relativePath) {

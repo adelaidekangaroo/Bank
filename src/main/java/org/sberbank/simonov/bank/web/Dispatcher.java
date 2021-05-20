@@ -34,7 +34,7 @@ public class Dispatcher {
 
     private void dispatch(HttpExchange exchange) throws IOException {
         String method = exchange.getRequestMethod();
-        String relativePath = exchange.getRequestURI().getRawPath().substring(context.length());
+        String relativePath = RequestParser.getRelativePath(context, exchange);
         Map<String, String> queries = RequestParser.queryToMap(exchange.getRequestURI().getRawQuery());
 
         AbstractMap.SimpleEntry<String, List<Integer>> pathTokens = RequestParser.getPathTokens(relativePath);

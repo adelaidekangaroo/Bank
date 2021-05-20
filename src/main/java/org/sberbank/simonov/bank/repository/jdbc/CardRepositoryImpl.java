@@ -17,8 +17,9 @@ public class CardRepositoryImpl implements CardRepository, Parcelable<Card> {
     public boolean save(Card card) {
         if (card.hasId()) {
             return saveWrap(statement -> {
-                parseToStatement(statement, card);
-                statement.setInt(5, card.getId());
+                statement.setBoolean(1, card.isActive());
+                statement.setBoolean(2, card.isConfirmed());
+                statement.setInt(3, card.getId());
             }, UPDATE);
         } else {
             return saveWrap(statement -> parseToStatement(statement, card), INSERT);
