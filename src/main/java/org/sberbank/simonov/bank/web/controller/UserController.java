@@ -5,13 +5,12 @@ import org.sberbank.simonov.bank.Context;
 import org.sberbank.simonov.bank.model.User;
 import org.sberbank.simonov.bank.repository.UserRepository;
 import org.sberbank.simonov.bank.repository.jdbc.UserRepositoryImpl;
-import org.sberbank.simonov.bank.web.SecurityUtil;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
-import static org.sberbank.simonov.bank.web.controller.ResponseWrapper.wrapWithBody;
+import static org.sberbank.simonov.bank.web.ResponseWrapper.wrapWithBody;
 
 public class UserController {
 
@@ -20,7 +19,7 @@ public class UserController {
     private final UserRepository repository = new UserRepositoryImpl();
 
     public void getAllCounterparties(HttpExchange exchange) throws IOException {
-        List<User> users = repository.getAllCounterparties(SecurityUtil.userId);
+        List<User> users = repository.getAllCounterparties(1);
         wrapWithBody(users, exchange, 200);
     }
 

@@ -30,7 +30,6 @@ public class QueryWrapper {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
         return isExecuted;
     }

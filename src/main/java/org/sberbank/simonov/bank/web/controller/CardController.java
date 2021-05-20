@@ -5,6 +5,7 @@ import org.sberbank.simonov.bank.Context;
 import org.sberbank.simonov.bank.model.Card;
 import org.sberbank.simonov.bank.repository.CardRepository;
 import org.sberbank.simonov.bank.repository.jdbc.CardRepositoryImpl;
+import org.sberbank.simonov.bank.web.ResponseWrapper;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

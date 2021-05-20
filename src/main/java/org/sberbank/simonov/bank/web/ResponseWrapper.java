@@ -1,4 +1,4 @@
-package org.sberbank.simonov.bank.web.controller;
+package org.sberbank.simonov.bank.web;
 
 import com.sun.net.httpserver.HttpExchange;
 import org.sberbank.simonov.bank.Context;

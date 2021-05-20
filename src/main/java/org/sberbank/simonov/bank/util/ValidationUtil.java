@@ -1,6 +1,6 @@
 package org.sberbank.simonov.bank.util;
 
-import org.sberbank.simonov.bank.exception.ImpossibleToCreateEntityException;
+import org.sberbank.simonov.bank.exception.ImpossibleToSaveEntityException;
 import org.sberbank.simonov.bank.exception.NotFoundException;
 import org.sberbank.simonov.bank.model.abstraction.BaseEntity;
 
@@ -28,9 +28,9 @@ public class ValidationUtil {
         }
     }
 
-    public static <T extends BaseEntity> void checkCreate(boolean found, T entity) {
+    public static void checkSave(boolean found, int id) {
         if (!found) {
-            throw new ImpossibleToCreateEntityException(String.format("Entity %d not created", entity.getId()));
+            throw new ImpossibleToSaveEntityException(String.format("Entity %d not saved", id));
         }
     }
 

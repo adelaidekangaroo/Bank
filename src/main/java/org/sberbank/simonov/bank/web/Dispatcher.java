@@ -3,7 +3,8 @@ package org.sberbank.simonov.bank.web;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 import org.sberbank.simonov.bank.model.Role;
-import org.sberbank.simonov.bank.service.AuthHelper;
+import org.sberbank.simonov.bank.service.auth.AuthUserService;
+import org.sberbank.simonov.bank.service.impl.UserServiceImpl;
 import org.sberbank.simonov.bank.util.RequestParser;
 import org.sberbank.simonov.bank.web.controller.AccountController;
 import org.sberbank.simonov.bank.web.controller.CardController;
@@ -15,6 +16,8 @@ import java.util.AbstractMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.sberbank.simonov.bank.model.Role.EMPLOYEE;
+import static org.sberbank.simonov.bank.model.Role.USER;
 import static org.sberbank.simonov.bank.web.controller.AccountController.ACCOUNT_CONTROLLER_PATH;
 import static org.sberbank.simonov.bank.web.controller.CardController.USER_CONTROLLER_PATH;
 import static org.sberbank.simonov.bank.web.controller.PaymentController.PAYMENT_CONTROLLER_PATH;
@@ -33,11 +36,12 @@ public class Dispatcher {
     private final AccountController accountController = new AccountController();
     private final PaymentController paymentController = new PaymentController();
 
-    private final AuthHelper userService = new AuthHelper();
-
     public Dispatcher(HttpServer server) {
-        server.createContext(userContext, exchange -> dispatch(exchange, Role.USER)).setAuthenticator(userService.getUserAuth());
-        server.createContext(employeeContext, exchange -> dispatch(exchange, Role.EMPLOYEE)).setAuthenticator(userService.getAdminAuth());
+        AuthUserService authService = new UserServiceImpl();
+        server.createContext(userContext, exchange -> dispatch(exchange, USER))
+                .setAuthenticator(authService.getAuthByRole(USER));
+        server.createContext(employeeContext, exchange -> dispatch(exchange, EMPLOYEE))
+                .setAuthenticator(authService.getAuthByRole(EMPLOYEE));
     }
 
     private void dispatch(HttpExchange exchange, Role role) throws IOException {
@@ -49,9 +53,9 @@ public class Dispatcher {
         String controllerMapper = pathTokens.getKey();
         List<Integer> ids = pathTokens.getValue();
 
-        if (role == Role.USER)
+        if (role == USER)
             manageUserRequest(controllerMapper, ids, method, queries, exchange);
-        else if (role == Role.EMPLOYEE)
+        else if (role == EMPLOYEE)
             manageAdminRequest(controllerMapper, ids, method, queries, exchange);
     }
 

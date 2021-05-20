@@ -5,6 +5,7 @@ import org.sberbank.simonov.bank.Context;
 import org.sberbank.simonov.bank.model.Account;
 import org.sberbank.simonov.bank.repository.AccountRepository;
 import org.sberbank.simonov.bank.repository.jdbc.AccountRepositoryImpl;
+import org.sberbank.simonov.bank.web.ResponseWrapper;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

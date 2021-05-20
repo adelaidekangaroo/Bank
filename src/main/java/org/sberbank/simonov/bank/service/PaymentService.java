@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface PaymentService {
 
-    void create(Payment payment);
+    void create(Payment payment, int userId);
 
-    void confirmPayment(int id);
+    void confirmPayment(Payment payment);
 
     Payment getById(int id);
 
