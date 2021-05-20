@@ -19,9 +19,9 @@ import java.util.Map;
 import static org.sberbank.simonov.bank.model.Role.EMPLOYEE;
 import static org.sberbank.simonov.bank.model.Role.USER;
 import static org.sberbank.simonov.bank.web.controller.AccountController.ACCOUNT_CONTROLLER_PATH;
-import static org.sberbank.simonov.bank.web.controller.CardController.USER_CONTROLLER_PATH;
+import static org.sberbank.simonov.bank.web.controller.CardController.CARD_CONTROLLER_PATH;
 import static org.sberbank.simonov.bank.web.controller.PaymentController.PAYMENT_CONTROLLER_PATH;
-import static org.sberbank.simonov.bank.web.controller.UserController.CARD_CONTROLLER_PATH;
+import static org.sberbank.simonov.bank.web.controller.UserController.USER_CONTROLLER_PATH;
 
 public class Dispatcher {
 

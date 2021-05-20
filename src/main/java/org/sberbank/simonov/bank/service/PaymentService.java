@@ -8,7 +8,7 @@ public interface PaymentService {
 
     void create(Payment payment, int userId);
 
-    void confirmPayment(Payment payment);
+    void confirm(Payment payment, int id);
 
     Payment getById(int id);
 

@@ -8,8 +8,7 @@ import org.sberbank.simonov.bank.service.PaymentService;
 import java.util.List;
 
 import static java.util.Objects.requireNonNull;
-import static org.sberbank.simonov.bank.util.ValidationUtil.checkNotFoundWithId;
-import static org.sberbank.simonov.bank.util.ValidationUtil.checkSave;
+import static org.sberbank.simonov.bank.util.ValidationUtil.*;
 
 public class PaymentServiceImpl implements PaymentService {
 
@@ -22,8 +21,9 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public void confirmPayment(Payment payment) {
+    public void confirm(Payment payment, int id) {
         requireNonNull(payment);
+        assureIdConsistent(payment, id);
         checkSave(repository.confirm(payment), payment.getId());
     }
 
