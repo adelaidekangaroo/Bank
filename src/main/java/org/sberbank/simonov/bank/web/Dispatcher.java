@@ -50,12 +50,12 @@ public class Dispatcher {
         List<Integer> ids = pathTokens.getValue();
 
         if (role == Role.USER)
-            manageRequest(controllerMapper, ids, method, queries, exchange);
+            manageUserRequest(controllerMapper, ids, method, queries, exchange);
         else if (role == Role.EMPLOYEE)
             manageAdminRequest(controllerMapper, ids, method, queries, exchange);
     }
 
-    public void manageAdminRequest(String controllerName, List<Integer> ids, String method, Map<String, String> queries, HttpExchange exchange) throws IOException {
+    private void manageAdminRequest(String controllerName, List<Integer> ids, String method, Map<String, String> queries, HttpExchange exchange) throws IOException {
         switch (controllerName) {
             case USER_CONTROLLER_PATH:
                 if (POST.equals(method)) {
@@ -77,10 +77,13 @@ public class Dispatcher {
                     if (ids.size() == 2) paymentController.confirm(ids.get(1), exchange);
                 }
                 break;
+            default:
+                sendNotFound(exchange);
+                break;
         }
     }
 
-    public void manageRequest(String controllerName, List<Integer> ids, String method, Map<String, String> queries, HttpExchange exchange) throws IOException {
+    private void manageUserRequest(String controllerName, List<Integer> ids, String method, Map<String, String> queries, HttpExchange exchange) throws IOException {
         switch (controllerName) {
             case USER_CONTROLLER_PATH:
                 switch (method) {
@@ -158,6 +161,14 @@ public class Dispatcher {
                         break;
                 }
                 break;
+            default:
+                sendNotFound(exchange);
+                break;
         }
+    }
+
+    private void sendNotFound(HttpExchange exchange) throws IOException {
+        exchange.sendResponseHeaders(404, -1);
+        exchange.close();
     }
 }
