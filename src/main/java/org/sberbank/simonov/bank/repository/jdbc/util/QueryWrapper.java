@@ -1,5 +1,6 @@
 package org.sberbank.simonov.bank.repository.jdbc.util;
 
+import org.sberbank.simonov.bank.exception.StorageException;
 import org.sberbank.simonov.bank.model.abstraction.BaseEntity;
 
 import java.sql.Connection;
@@ -29,7 +30,7 @@ public class QueryWrapper {
                 isExecuted = executor.execute(connection);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new StorageException(e);
         }
         return isExecuted;
     }
@@ -46,9 +47,8 @@ public class QueryWrapper {
             } finally {
                 connection.rollback();
             }
-        } catch (
-                SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new StorageException(e);
         }
         return isExecuted;
     }
@@ -64,9 +64,8 @@ public class QueryWrapper {
                     result = parcelable.parseFromResultSet(resultSet);
                 }
             }
-        } catch (
-                SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new StorageException(e);
         }
         return result;
     }
@@ -82,9 +81,8 @@ public class QueryWrapper {
                     result.add(parcelable.parseFromResultSet(resultSet));
                 }
             }
-        } catch (
-                SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new StorageException(e);
         }
         return result;
     }

@@ -2,12 +2,13 @@ package org.sberbank.simonov.bank.service.impl;
 
 import com.sun.net.httpserver.Authenticator;
 import com.sun.net.httpserver.BasicAuthenticator;
+import org.sberbank.simonov.bank.exception.StorageException;
 import org.sberbank.simonov.bank.model.Role;
 import org.sberbank.simonov.bank.model.User;
 import org.sberbank.simonov.bank.repository.UserRepository;
 import org.sberbank.simonov.bank.repository.jdbc.UserRepositoryImpl;
-import org.sberbank.simonov.bank.service.auth.AuthUserService;
 import org.sberbank.simonov.bank.service.UserService;
+import org.sberbank.simonov.bank.service.auth.AuthUserService;
 import org.sberbank.simonov.bank.service.auth.CredentialChecker;
 import org.sberbank.simonov.bank.to.UserTo;
 
@@ -46,7 +47,11 @@ public class UserServiceImpl implements UserService, AuthUserService {
         return new BasicAuthenticator("myrealm") {
             @Override
             public boolean checkCredentials(String login, String password) {
-                return checker.check(login, password);
+                try {
+                    return checker.check(login, password);
+                } catch (StorageException e) {
+                    return false;
+                }
             }
         };
     }
