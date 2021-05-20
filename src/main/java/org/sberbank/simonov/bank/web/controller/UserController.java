@@ -15,6 +15,8 @@ import static org.sberbank.simonov.bank.web.controller.ResponseWrapper.wrapWithB
 
 public class UserController {
 
+    public static final String CARD_CONTROLLER_PATH = "cards";
+
     private final UserRepository repository = new UserRepositoryImpl();
 
     public void getAllCounterparties(HttpExchange exchange) throws IOException {

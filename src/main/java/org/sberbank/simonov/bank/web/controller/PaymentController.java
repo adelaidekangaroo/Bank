@@ -12,6 +12,8 @@ import java.util.List;
 
 public class PaymentController {
 
+    public static final String PAYMENT_CONTROLLER_PATH = "payments";
+
     private final PaymentRepository repository = new PaymentRepositoryImpl();
 
     public void getById(int id, HttpExchange exchange) throws IOException {

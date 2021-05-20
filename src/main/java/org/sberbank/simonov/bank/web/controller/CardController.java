@@ -12,6 +12,8 @@ import java.util.List;
 
 public class CardController {
 
+    public static final String USER_CONTROLLER_PATH = "users";
+
     private final CardRepository repository = new CardRepositoryImpl();
 
     public void getAllByUser(int userId, HttpExchange exchange) throws IOException {

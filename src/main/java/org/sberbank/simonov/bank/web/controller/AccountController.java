@@ -12,6 +12,8 @@ import java.util.List;
 
 public class AccountController {
 
+    public static final String ACCOUNT_CONTROLLER_PATH = "accounts";
+
     private final AccountRepository repository = new AccountRepositoryImpl();
 
     public void getAllByUser(int userId, HttpExchange exchange) throws IOException {

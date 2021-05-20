@@ -13,20 +13,21 @@ import java.util.AbstractMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.sberbank.simonov.bank.web.controller.AccountController.ACCOUNT_CONTROLLER_PATH;
+import static org.sberbank.simonov.bank.web.controller.CardController.USER_CONTROLLER_PATH;
+import static org.sberbank.simonov.bank.web.controller.PaymentController.PAYMENT_CONTROLLER_PATH;
+import static org.sberbank.simonov.bank.web.controller.UserController.CARD_CONTROLLER_PATH;
+
 public class Dispatcher {
 
-    public static final String context = "/bank/rest/";
-    public static final String USER_CONTROLLER_PATH = "users";
-    public static final String CARD_CONTROLLER_PATH = "cards";
-    public static final String ACCOUNT_CONTROLLER_PATH = "accounts";
-    public static final String PAYMENT_CONTROLLER_PATH = "payments";
-    public static final String GET = "GET";
-    public static final String POST = "POST";
-    public static final String PUT = "PUT";
-    public static final String DELETE = "DELETE";
+    private static final String context = "/bank/rest/";
+    private static final String GET = "GET";
+    private static final String POST = "POST";
+    private static final String PUT = "PUT";
+    private static final String DELETE = "DELETE";
 
-    public final UserController userController = new UserController();
-    public final CardController cardController = new CardController();
+    private final UserController userController = new UserController();
+    private final CardController cardController = new CardController();
     private final AccountController accountController = new AccountController();
     private final PaymentController paymentController = new PaymentController();
 
