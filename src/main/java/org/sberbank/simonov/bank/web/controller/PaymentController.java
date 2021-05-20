@@ -8,6 +8,7 @@ import org.sberbank.simonov.bank.repository.jdbc.PaymentRepositoryImpl;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
 public class PaymentController {
 
@@ -16,6 +17,13 @@ public class PaymentController {
     public void getById(int id, HttpExchange exchange) throws IOException {
         Payment payment = repository.getById(id);
         ResponseWrapper.wrapWithBody(payment, exchange, 200);
+    }
+
+    public void getAllUnconfirmed(boolean confirmed, HttpExchange exchange) throws IOException {
+        if (confirmed) {
+            List<Payment> payments = repository.getAllUnconfirmed();
+            ResponseWrapper.wrapWithBody(payments, exchange, 200);
+        }
     }
 
     public void create(int userId, HttpExchange exchange) throws IOException {

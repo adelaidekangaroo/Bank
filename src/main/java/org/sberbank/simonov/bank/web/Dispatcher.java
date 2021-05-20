@@ -3,8 +3,10 @@ package org.sberbank.simonov.bank.web;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 import org.sberbank.simonov.bank.util.RequestParser;
+import org.sberbank.simonov.bank.web.controller.AccountController;
+import org.sberbank.simonov.bank.web.controller.CardController;
+import org.sberbank.simonov.bank.web.controller.PaymentController;
 import org.sberbank.simonov.bank.web.controller.UserController;
-import org.sberbank.simonov.bank.web.controller.*;
 
 import java.io.IOException;
 import java.util.AbstractMap;
@@ -41,10 +43,10 @@ public class Dispatcher {
         String controllerMapper = pathTokens.getKey();
         List<Integer> ids = pathTokens.getValue();
 
-        manageRequest(controllerMapper, ids, method, exchange);
+        manageRequest(controllerMapper, ids, method, queries, exchange);
     }
 
-    public void manageRequest(String controllerName, List<Integer> ids, String method, HttpExchange exchange) throws IOException {
+    public void manageRequest(String controllerName, List<Integer> ids, String method, Map<String, String> queries, HttpExchange exchange) throws IOException {
         switch (controllerName) {
             case USER_CONTROLLER_PATH:
                 switch (method) {
@@ -67,6 +69,12 @@ public class Dispatcher {
                 switch (method) {
                     case GET:
                         switch (ids.size()) {
+                            case 0:
+                                if (queries.containsKey("confirmed")) {
+                                    boolean confirmed = Boolean.parseBoolean(queries.get("confirmed"));
+                                    cardController.getAllUnconfirmed(confirmed, exchange);
+                                }
+                                break;
                             case 1:
                                 int userId = ids.get(0);
                                 cardController.getAllByUser(userId, exchange);
@@ -100,12 +108,21 @@ public class Dispatcher {
                     case POST:
                         if (ids.size() == 1) accountController.create(ids.get(0), exchange);
                         break;
+                    case PUT:
+                        if (ids.size() == 2) accountController.update(ids.get(1), ids.get(0), exchange);
+                        break;
                 }
                 break;
             case PAYMENT_CONTROLLER_PATH:
                 switch (method) {
                     case GET:
                         switch (ids.size()) {
+                            case 0:
+                                if (queries.containsKey("confirmed")) {
+                                    boolean confirmed = Boolean.parseBoolean(queries.get("confirmed"));
+                                    paymentController.getAllUnconfirmed(confirmed, exchange);
+                                }
+                                break;
                             case 2:
                                 int id = ids.get(1);
                                 paymentController.getById(id, exchange);

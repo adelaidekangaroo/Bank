@@ -16,7 +16,7 @@ public interface AccountRepository {
 
     boolean create(Account account, int userId);
 
-    boolean update(BigDecimal amount, int id, int userId);
+    boolean update(Account account, int userId);
 
     Account getById(int id, int userId);
 

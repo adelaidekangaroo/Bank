@@ -24,11 +24,19 @@ public class AccountController {
         ResponseWrapper.wrapWithBody(account, exchange, 200);
     }
 
-    public void create(int id, HttpExchange exchange) throws IOException {
+    public void create(int userId, HttpExchange exchange) throws IOException {
         Account account = Context.getGson()
                 .fromJson(new InputStreamReader(exchange.getRequestBody()), Account.class);
-        repository.create(account, id);
+        repository.create(account, userId);
         exchange.sendResponseHeaders(201, -1);
+        exchange.close();
+    }
+
+    public void update(int id, int userId, HttpExchange exchange) throws IOException {
+        Account account = Context.getGson()
+                .fromJson(new InputStreamReader(exchange.getRequestBody()), Account.class);
+        repository.update(account, userId);
+        exchange.sendResponseHeaders(204, -1);
         exchange.close();
     }
 }

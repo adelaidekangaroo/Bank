@@ -19,6 +19,13 @@ public class CardController {
         ResponseWrapper.wrapWithBody(cards, exchange, 200);
     }
 
+    public void getAllUnconfirmed(boolean confirmed, HttpExchange exchange) throws IOException {
+        if (confirmed) {
+            List<Card> cards = repository.getAllUnconfirmed();
+            ResponseWrapper.wrapWithBody(cards, exchange, 200);
+        }
+    }
+
     public void getById(int id, HttpExchange exchange) throws IOException {
         Card card = repository.getById(id);
         ResponseWrapper.wrapWithBody(card, exchange, 200);

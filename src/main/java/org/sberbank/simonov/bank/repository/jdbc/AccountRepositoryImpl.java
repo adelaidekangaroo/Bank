@@ -4,7 +4,6 @@ import org.sberbank.simonov.bank.model.Account;
 import org.sberbank.simonov.bank.repository.AccountRepository;
 import org.sberbank.simonov.bank.repository.jdbc.util.Parcelable;
 
-import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,10 +22,10 @@ public class AccountRepositoryImpl implements AccountRepository, Parcelable<Acco
     }
 
     @Override
-    public boolean update(BigDecimal amount, int id, int userId) {
+    public boolean update(Account account, int userId) {
         return saveWrap(statement -> {
-            statement.setBigDecimal(1, amount);
-            statement.setInt(2, id);
+            statement.setBigDecimal(1, account.getAmount());
+            statement.setInt(2, account.getId());
             statement.setInt(3, userId);
         }, UPDATE);
     }
