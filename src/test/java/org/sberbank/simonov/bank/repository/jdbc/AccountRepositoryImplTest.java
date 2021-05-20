@@ -27,7 +27,7 @@ public class AccountRepositoryImplTest extends InitRepositoryTest {
     @Test
     public void update() {
         Account updated = updated();
-        repository.update(updated.getAmount(), updated.getId(), updated.getUserId());
+        repository.update(updated, updated.getUserId());
         Account received = repository.getById(updated.getId(), updated.getUserId());
         Assert.assertEquals(received, updated);
     }

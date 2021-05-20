@@ -31,6 +31,11 @@ public class UserRepositoryImpl implements UserRepository, Parcelable<User> {
     }
 
     @Override
+    public User getByLogin(String login) {
+        return getSingleWrap(statement -> statement.setString(1, login), this, GET_BY_LOGIN);
+    }
+
+    @Override
     public User parseFromResultSet(ResultSet resultSet) throws SQLException {
         return new User(
                 resultSet.getInt("id"),

@@ -2,6 +2,8 @@ package org.sberbank.simonov.bank.web;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
+import org.sberbank.simonov.bank.model.Role;
+import org.sberbank.simonov.bank.service.AuthHelper;
 import org.sberbank.simonov.bank.util.RequestParser;
 import org.sberbank.simonov.bank.web.controller.AccountController;
 import org.sberbank.simonov.bank.web.controller.CardController;
@@ -20,31 +22,62 @@ import static org.sberbank.simonov.bank.web.controller.UserController.CARD_CONTR
 
 public class Dispatcher {
 
-    private static final String context = "/bank/rest/";
+    private static final String userContext = "/bank/rest/profile";
+    private static final String employeeContext = "/bank/rest/admin";
     private static final String GET = "GET";
     private static final String POST = "POST";
     private static final String PUT = "PUT";
-    private static final String DELETE = "DELETE";
 
     private final UserController userController = new UserController();
     private final CardController cardController = new CardController();
     private final AccountController accountController = new AccountController();
     private final PaymentController paymentController = new PaymentController();
 
+    private final AuthHelper userService = new AuthHelper();
+
     public Dispatcher(HttpServer server) {
-        server.createContext(context, this::dispatch);
+        server.createContext(userContext, exchange -> dispatch(exchange, Role.USER)).setAuthenticator(userService.getUserAuth());
+        server.createContext(employeeContext, exchange -> dispatch(exchange, Role.EMPLOYEE)).setAuthenticator(userService.getAdminAuth());
     }
 
-    private void dispatch(HttpExchange exchange) throws IOException {
+    private void dispatch(HttpExchange exchange, Role role) throws IOException {
         String method = exchange.getRequestMethod();
-        String relativePath = RequestParser.getRelativePath(context, exchange);
+        String relativePath = RequestParser.getRelativePath(userContext, exchange);
         Map<String, String> queries = RequestParser.queryToMap(exchange.getRequestURI().getRawQuery());
 
         AbstractMap.SimpleEntry<String, List<Integer>> pathTokens = RequestParser.getPathTokens(relativePath);
         String controllerMapper = pathTokens.getKey();
         List<Integer> ids = pathTokens.getValue();
 
-        manageRequest(controllerMapper, ids, method, queries, exchange);
+        if (role == Role.USER)
+            manageRequest(controllerMapper, ids, method, queries, exchange);
+        else if (role == Role.EMPLOYEE)
+            manageAdminRequest(controllerMapper, ids, method, queries, exchange);
+    }
+
+    public void manageAdminRequest(String controllerName, List<Integer> ids, String method, Map<String, String> queries, HttpExchange exchange) throws IOException {
+        switch (controllerName) {
+            case USER_CONTROLLER_PATH:
+                if (POST.equals(method)) {
+                    if (ids.size() == 0) userController.create(exchange);
+                }
+                break;
+            case CARD_CONTROLLER_PATH:
+                if (PUT.equals(method)) {
+                    if (ids.size() == 2) cardController.update(exchange, ids.get(1));
+                }
+                break;
+            case ACCOUNT_CONTROLLER_PATH:
+                if (POST.equals(method)) {
+                    if (ids.size() == 1) accountController.create(ids.get(0), exchange);
+                }
+                break;
+            case PAYMENT_CONTROLLER_PATH:
+                if (PUT.equals(method)) {
+                    if (ids.size() == 2) paymentController.confirm(ids.get(1), exchange);
+                }
+                break;
+        }
     }
 
     public void manageRequest(String controllerName, List<Integer> ids, String method, Map<String, String> queries, HttpExchange exchange) throws IOException {
@@ -61,9 +94,6 @@ public class Dispatcher {
                                 userController.getById(userId, exchange);
                         }
                         break;
-                    case POST:
-                        if (ids.size() == 0) userController.create(exchange);
-                        break;
                 }
                 break;
             case CARD_CONTROLLER_PATH:
@@ -71,8 +101,8 @@ public class Dispatcher {
                     case GET:
                         switch (ids.size()) {
                             case 0:
-                                if (queries.containsKey("confirmed")) {
-                                    boolean confirmed = Boolean.parseBoolean(queries.get("confirmed"));
+                                if (queries.containsKey("notconfirmed")) {
+                                    boolean confirmed = Boolean.parseBoolean(queries.get("notconfirmed"));
                                     cardController.getAllUnconfirmed(confirmed, exchange);
                                 }
                                 break;
@@ -87,9 +117,6 @@ public class Dispatcher {
                         break;
                     case POST:
                         if (ids.size() == 1) cardController.create(exchange);
-                        break;
-                    case PUT:
-                        if (ids.size() == 2) cardController.update(exchange, ids.get(1));
                         break;
                 }
                 break;
@@ -106,9 +133,6 @@ public class Dispatcher {
                                 accountController.getById(id, ids.get(0), exchange);
                         }
                         break;
-                    case POST:
-                        if (ids.size() == 1) accountController.create(ids.get(0), exchange);
-                        break;
                     case PUT:
                         if (ids.size() == 2) accountController.update(ids.get(1), ids.get(0), exchange);
                         break;
@@ -119,8 +143,8 @@ public class Dispatcher {
                     case GET:
                         switch (ids.size()) {
                             case 0:
-                                if (queries.containsKey("confirmed")) {
-                                    boolean confirmed = Boolean.parseBoolean(queries.get("confirmed"));
+                                if (queries.containsKey("notconfirmed")) {
+                                    boolean confirmed = Boolean.parseBoolean(queries.get("notconfirmed"));
                                     paymentController.getAllUnconfirmed(confirmed, exchange);
                                 }
                                 break;
@@ -131,9 +155,6 @@ public class Dispatcher {
                         break;
                     case POST:
                         if (ids.size() == 1) paymentController.create(ids.get(0), exchange);
-                        break;
-                    case PUT:
-                        if (ids.size() == 2) paymentController.confirm(ids.get(1), exchange);
                         break;
                 }
                 break;

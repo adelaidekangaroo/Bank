@@ -16,10 +16,8 @@ public class RequestParser {
         Map<String, String> result = new HashMap<>();
         for (String param : query.split("&")) {
             String[] entry = param.split("=");
-            if (entry.length > 1) {
-                result.put(entry[0], entry[1]);
-            } else {
-                result.put(entry[0], "");
+            if (entry.length == 2) {
+                result.put(entry[0].toLowerCase(), entry[1]);
             }
         }
         return result;
