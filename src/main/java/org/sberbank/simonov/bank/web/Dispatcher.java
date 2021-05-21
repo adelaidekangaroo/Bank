@@ -19,9 +19,12 @@ public class Dispatcher {
 
     private static final String userContext = "/bank/rest/profile/";
     private static final String employeeContext = "/bank/rest/admin/";
+
     public static final String GET = "GET";
     public static final String POST = "POST";
     public static final String PUT = "PUT";
+    public static final String DELETE = "DELETE";
+
     public static final int OK_CODE = 200;
     public static final int CREATED_CODE = 201;
     public static final int NO_CONTENT_CODE = 204;

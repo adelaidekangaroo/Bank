@@ -31,13 +31,13 @@ public class ValidationUtil {
 
     public static void checkUpdate(boolean found, int id) {
         if (!found) {
-            throw new ImpossibleToUpdateEntityException(String.format("Entity %d not saved", id));
+            throw new ImpossibleToUpdateEntityException(String.format("Entity %d not updated", id));
         }
     }
 
-    public static <T> void checkSave(boolean found, Class<T> clazz) {
+    public static <T> void checkCreate(boolean found, Class<T> clazz) {
         if (!found) {
-            throw new ImpossibleToCreateEntityException(String.format("Entity %s not saved", clazz.getCanonicalName()));
+            throw new ImpossibleToCreateEntityException(String.format("Entity %s not created", clazz.getCanonicalName()));
         }
     }
 

@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService, AuthUserService {
     public void create(User user) {
         requireNonNull(user);
         checkNew(user);
-        checkSave(repository.create(user), User.class);
+        checkCreate(repository.create(user), User.class);
     }
 
     @Override

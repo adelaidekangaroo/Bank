@@ -18,7 +18,7 @@ public class CardServiceImpl implements CardService {
     public void create(Card card) {
         requireNonNull(card);
         checkNew(card);
-        checkSave(repository.save(card), Card.class);
+        checkCreate(repository.save(card), Card.class);
     }
 
     @Override

@@ -18,7 +18,7 @@ public class AccountServiceImpl implements AccountService {
     public void create(Account account, int userId) {
         requireNonNull(account);
         checkNew(account);
-        checkSave(repository.create(account, userId), Account.class);
+        checkCreate(repository.create(account, userId), Account.class);
     }
 
     @Override

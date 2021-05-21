@@ -18,7 +18,7 @@ public class PaymentServiceImpl implements PaymentService {
     public void create(Payment payment, int userId) {
         requireNonNull(payment);
         checkNew(payment);
-        checkSave(repository.create(payment, userId), Payment.class);
+        checkCreate(repository.create(payment, userId), Payment.class);
     }
 
     @Override
