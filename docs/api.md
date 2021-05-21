@@ -1,4 +1,4 @@
-## Users
+## `Users`
 
 ### Get by id
 ```
@@ -135,7 +135,7 @@ Body:
 ]
 
 ```
-## Accounts
+## `Accounts`
 
 ### Get by id
 ```
@@ -244,7 +244,7 @@ HTTP/1.1 204 No Content
 Date: Fri, 21 May 2021 11:09:36 GMT
 
 ```
-## Cards
+## `Cards`
 
 ### Get by id
 ```
@@ -415,7 +415,7 @@ HTTP/1.1 204 No Content
 Date: Fri, 21 May 2021 11:18:43 GMT
 
 ```
-## Payments
+## `Payments`
 
 ### Get by id
 ```
