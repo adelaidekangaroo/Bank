@@ -17,14 +17,15 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void create(Account account, int userId) {
         requireNonNull(account);
-        checkSave(repository.create(account, userId), account.getId());
+        checkNew(account);
+        checkSave(repository.create(account, userId), Account.class);
     }
 
     @Override
     public void update(Account account, int id, int userId) {
         requireNonNull(account);
         assureIdConsistent(account, id);
-        checkSave(repository.update(account, userId), account.getId());
+        checkUpdate(repository.update(account, userId), account.getId());
     }
 
     @Override

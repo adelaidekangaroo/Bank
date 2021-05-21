@@ -17,14 +17,15 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public void create(Payment payment, int userId) {
         requireNonNull(payment);
-        checkSave(repository.create(payment, userId), payment.getId());
+        checkNew(payment);
+        checkSave(repository.create(payment, userId), Payment.class);
     }
 
     @Override
     public void confirm(Payment payment, int id) {
         requireNonNull(payment);
         assureIdConsistent(payment, id);
-        checkSave(repository.confirm(payment), payment.getId());
+        checkUpdate(repository.confirm(payment), payment.getId());
     }
 
     @Override

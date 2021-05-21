@@ -1,39 +1,72 @@
 package org.sberbank.simonov.bank.web.controller;
 
 import com.sun.net.httpserver.HttpExchange;
-import org.sberbank.simonov.bank.Context;
+import org.sberbank.simonov.bank.model.Role;
 import org.sberbank.simonov.bank.model.User;
 import org.sberbank.simonov.bank.service.UserService;
 import org.sberbank.simonov.bank.service.impl.UserServiceImpl;
 import org.sberbank.simonov.bank.to.UserTo;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
+import java.util.Map;
 
-import static org.sberbank.simonov.bank.web.ResponseWrapper.sendWithBody;
+import static org.sberbank.simonov.bank.util.RequestParser.parseJsonBodyFromExchange;
+import static org.sberbank.simonov.bank.web.Dispatcher.*;
+import static org.sberbank.simonov.bank.util.ResponseWrapper.*;
 
-public class UserController {
+public class UserController extends AbstractController {
 
-    public static final String USER_CONTROLLER_PATH = "users";
+    public static final String REST_URL = "users/{id}";
 
     private final UserService service = new UserServiceImpl();
 
-    public void getAllCounterparties(HttpExchange exchange) throws IOException {
-        List<UserTo> users = service.getAllCounterparties(1);
-        sendWithBody(users, exchange, 200);
+    public void getAllCounterparties(HttpExchange exchange) {
+        handleErrors(exchange, () -> {
+            List<UserTo> users = service.getAllCounterparties(1);
+            sendWithBody(users, exchange, OK_CODE);
+        });
     }
 
-    public void getById(int id, HttpExchange exchange) throws IOException {
-        UserTo user = service.getById(id);
-        sendWithBody(user, exchange, 200);
+    public void getById(int id, HttpExchange exchange) {
+        handleErrors(exchange, () -> {
+            UserTo user = service.getById(id);
+            sendWithBody(user, exchange, OK_CODE);
+        });
     }
 
-    public void create(HttpExchange exchange) throws IOException {
-        User user = Context.getGson()
-                .fromJson(new InputStreamReader(exchange.getRequestBody()), User.class);
-        service.create(user);
-        exchange.sendResponseHeaders(201, -1);
-        exchange.close();
+    public void create(HttpExchange exchange) {
+        handleErrors(exchange, () -> {
+            User user = parseJsonBodyFromExchange(exchange, User.class);
+            service.create(user);
+            sendWithOutBody(exchange, CREATED_CODE);
+        });
+    }
+
+    @Override
+    protected String getUrl() {
+        return REST_URL;
+    }
+
+    @Override
+    protected void switchMethod(HttpExchange exchange, Role role, String method, Map<String, String> queries, List<Integer> ids) {
+        switch (role) {
+            case USER:
+                if (GET.equals(method)) {
+                    switch (ids.size()) {
+                        case 0:
+                            getAllCounterparties(exchange);
+                            break;
+                        case 1:
+                            int userId = ids.get(0);
+                            getById(userId, exchange);
+                    }
+                }
+                break;
+            case EMPLOYEE:
+                if (POST.equals(method)) {
+                    if (ids.size() == 0) create(exchange);
+                }
+                break;
+        }
     }
 }

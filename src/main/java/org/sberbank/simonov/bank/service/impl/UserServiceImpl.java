@@ -8,16 +8,15 @@ import org.sberbank.simonov.bank.model.User;
 import org.sberbank.simonov.bank.repository.UserRepository;
 import org.sberbank.simonov.bank.repository.jdbc.UserRepositoryImpl;
 import org.sberbank.simonov.bank.service.UserService;
-import org.sberbank.simonov.bank.service.auth.AuthUserService;
-import org.sberbank.simonov.bank.service.auth.CredentialChecker;
+import org.sberbank.simonov.bank.service.impl.auth.AuthUserService;
+import org.sberbank.simonov.bank.service.impl.auth.CredentialChecker;
 import org.sberbank.simonov.bank.to.UserTo;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
-import static org.sberbank.simonov.bank.util.ValidationUtil.checkNotFoundWithId;
-import static org.sberbank.simonov.bank.util.ValidationUtil.checkSave;
+import static org.sberbank.simonov.bank.util.ValidationUtil.*;
 
 public class UserServiceImpl implements UserService, AuthUserService {
 
@@ -59,7 +58,8 @@ public class UserServiceImpl implements UserService, AuthUserService {
     @Override
     public void create(User user) {
         requireNonNull(user);
-        checkSave(repository.create(user), user.getId());
+        checkNew(user);
+        checkSave(repository.create(user), User.class);
     }
 
     @Override

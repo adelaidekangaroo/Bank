@@ -1,52 +1,100 @@
 package org.sberbank.simonov.bank.web.controller;
 
 import com.sun.net.httpserver.HttpExchange;
-import org.sberbank.simonov.bank.Context;
 import org.sberbank.simonov.bank.model.Card;
+import org.sberbank.simonov.bank.model.Role;
 import org.sberbank.simonov.bank.service.CardService;
 import org.sberbank.simonov.bank.service.impl.CardServiceImpl;
-import org.sberbank.simonov.bank.web.ResponseWrapper;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
+import java.util.Map;
 
-public class CardController {
+import static org.sberbank.simonov.bank.util.RequestParser.parseJsonBodyFromExchange;
+import static org.sberbank.simonov.bank.web.Dispatcher.*;
+import static org.sberbank.simonov.bank.util.ResponseWrapper.*;
 
-    public static final String CARD_CONTROLLER_PATH = "cards";
+public class CardController extends AbstractController {
+
+    public static final String REST_URL = "users/{userId}/cards/{id}";
 
     private final CardService service = new CardServiceImpl();
 
-    public void getAllByUser(int userId, HttpExchange exchange) throws IOException {
-        List<Card> cards = service.getAllByUser(userId);
-        ResponseWrapper.sendWithBody(cards, exchange, 200);
+    public void getAllByUser(int userId, HttpExchange exchange) {
+        handleErrors(exchange, () -> {
+            List<Card> cards = service.getAllByUser(userId);
+            sendWithBody(cards, exchange, OK_CODE);
+        });
     }
 
-    public void getAllUnconfirmed(boolean confirmed, HttpExchange exchange) throws IOException {
-        if (confirmed) {
-            List<Card> cards = service.getAllUnconfirmed();
-            ResponseWrapper.sendWithBody(cards, exchange, 200);
+    public void getAllUnconfirmed(boolean confirmed, HttpExchange exchange) {
+        handleErrors(exchange, () -> {
+            if (confirmed) {
+                List<Card> cards = service.getAllUnconfirmed();
+                sendWithBody(cards, exchange, OK_CODE);
+            }
+        });
+    }
+
+    public void getById(int id, HttpExchange exchange) {
+        handleErrors(exchange, () -> {
+            Card card = service.getById(id);
+            sendWithBody(card, exchange, OK_CODE);
+        });
+    }
+
+    public void create(HttpExchange exchange) {
+        handleErrors(exchange, () -> {
+            Card card = parseJsonBodyFromExchange(exchange, Card.class);
+            service.create(card);
+            sendWithOutBody(exchange, CREATED_CODE);
+        });
+    }
+
+    public void update(HttpExchange exchange, int id) {
+        handleErrors(exchange, () -> {
+            Card card = parseJsonBodyFromExchange(exchange, Card.class);
+            service.update(card, id);
+            sendWithOutBody(exchange, NO_CONTENT_CODE);
+        });
+    }
+
+    @Override
+    protected String getUrl() {
+        return REST_URL;
+    }
+
+    @Override
+    protected void switchMethod(HttpExchange exchange, Role role, String method, Map<String, String> queries, List<Integer> ids) {
+        switch (role) {
+            case USER:
+                switch (method) {
+                    case GET:
+                        switch (ids.size()) {
+                            case 0:
+                                if (queries.containsKey("notconfirmed")) {
+                                    boolean confirmed = Boolean.parseBoolean(queries.get("notconfirmed"));
+                                    getAllUnconfirmed(confirmed, exchange);
+                                }
+                                break;
+                            case 1:
+                                int userId = ids.get(0);
+                                getAllByUser(userId, exchange);
+                                break;
+                            case 2:
+                                int id = ids.get(1);
+                                getById(id, exchange);
+                        }
+                        break;
+                    case POST:
+                        if (ids.size() == 1) create(exchange);
+                        break;
+                }
+                break;
+            case EMPLOYEE:
+                if (PUT.equals(method)) {
+                    if (ids.size() == 2) update(exchange, ids.get(1));
+                }
+                break;
         }
-    }
-
-    public void getById(int id, HttpExchange exchange) throws IOException {
-        Card card = service.getById(id);
-        ResponseWrapper.sendWithBody(card, exchange, 200);
-    }
-
-    public void create(HttpExchange exchange) throws IOException {
-        Card card = Context.getGson()
-                .fromJson(new InputStreamReader(exchange.getRequestBody()), Card.class);
-        service.create(card);
-        exchange.sendResponseHeaders(201, -1);
-        exchange.close();
-    }
-
-    public void update(HttpExchange exchange, int id) throws IOException {
-        Card card = Context.getGson()
-                .fromJson(new InputStreamReader(exchange.getRequestBody()), Card.class);
-        service.update(card, id);
-        exchange.sendResponseHeaders(204, -1);
-        exchange.close();
     }
 }

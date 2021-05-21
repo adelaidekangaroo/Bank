@@ -17,14 +17,15 @@ public class CardServiceImpl implements CardService {
     @Override
     public void create(Card card) {
         requireNonNull(card);
-        checkSave(repository.save(card), card.getId());
+        checkNew(card);
+        checkSave(repository.save(card), Card.class);
     }
 
     @Override
     public void update(Card card, int id) {
         requireNonNull(card);
         assureIdConsistent(card, id);
-        checkSave(repository.save(card), card.getId());
+        checkUpdate(repository.save(card), card.getId());
     }
 
     @Override
