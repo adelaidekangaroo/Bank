@@ -1,3 +1,0 @@
-create user
-
-curl -X POST -d '{"login":"new user","password":"pass34","fullName":"Васильев Василий васильевич","role":"USER","userType":"INDIVIDUAL","id":null}' -H 'Content-Type:application/json;charset=UTF-8' localhost:8080/bank/rest/users
