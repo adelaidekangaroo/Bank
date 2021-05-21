@@ -6,7 +6,7 @@ Stack:
 3. HttpServer
 4. JUnit, Hamcrest
 
-[_API Documentation_](api.md)
+[_API Documentation_](docs/api.md)
 
 ### DB diargam
 ![](diagram.png)
