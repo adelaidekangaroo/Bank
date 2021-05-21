@@ -11,10 +11,17 @@ import static org.sberbank.simonov.bank.util.RequestParser.getUrlPattern;
 
 public abstract class AbstractController {
 
-    public void match(HttpExchange exchange, Role role, String relativePath, String method, Map<String, String> queries) {
+    public boolean match(HttpExchange exchange,
+                         Role role,
+                         String relativePath,
+                         String method,
+                         Map<String, String> queries) {
         if (relativePath.matches(getUrlPattern(getUrl()))) {
             List<Integer> ids = getIds(relativePath);
             switchMethod(exchange, role, method, queries, ids);
+            return true;
+        } else {
+            return false;
         }
     }
 

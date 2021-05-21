@@ -23,7 +23,7 @@ public class RequestParser {
 
     public static Map<String, String> queryToMap(String query) {
         if (query == null) {
-            return null;
+            return Collections.emptyMap();
         }
         Map<String, String> result = new HashMap<>();
         for (String param : query.split("&")) {

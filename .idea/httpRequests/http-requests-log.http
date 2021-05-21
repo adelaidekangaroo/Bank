@@ -1,0 +1,463 @@
+POST http://localhost:8080/bank/rest/profile/users/1/payments
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+{
+  "id": null,
+  "amount": 100.00,
+  "accountOwnerId": 2,
+  "counterpartyId": 3,
+  "isConfirmed": false
+}
+
+###
+
+PUT http://localhost:8080/bank/rest/admin/users/1/payments/1
+Authorization: Basic empl1 pass2
+Content-type: application/json; charset=utf-8
+
+{
+  "id": 1,
+  "amount": 100.00,
+  "accountOwnerId": 2,
+  "counterpartyId": 3,
+  "isConfirmed": false
+}
+
+###
+
+PUT http://localhost:8080/bank/rest/admin/users/1/cards/1
+Authorization: Basic empl1 pass2
+Content-type: application/json; charset=utf-8
+
+{
+  "id": 1,
+  "amount": 100.00,
+  "accountOwnerId": 2,
+  "counterpartyId": 3,
+  "isConfirmed": false
+}
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users/payments?notconfirmed=true
+Authorization: Basic empl1 pass3
+Content-type: application/json; charset=utf-8
+
+<> 2021-05-21T142621.200.txt
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users/cards?notconfirmed=true
+Authorization: Basic empl1 pass3
+Content-type: application/json; charset=utf-8
+
+<> 2021-05-21T142431.200.txt
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users/1/payments/1
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+<> 2021-05-21T142031.200.txt
+
+###
+
+PUT http://localhost:8080/bank/rest/admin/users/1/cards/2
+Authorization: Basic empl1 pass2
+Content-type: application/json; charset=utf-8
+
+{
+  "id": 2,
+  "accountId": 2,
+  "isActive": true,
+  "number": 1234567890123456,
+  "isConfirmed": true
+}
+
+###
+
+POST http://localhost:8080/bank/rest/profile/users/1/cards
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+{
+  "id": null,
+  "accountId": 1,
+  "isActive": false,
+  "number": 1111111111111112,
+  "isConfirmed": false
+}
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users/1/cards
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+<> 2021-05-21T141343.200.txt
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users/1/cards/1
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+<> 2021-05-21T141218.200.txt
+
+###
+
+PUT http://localhost:8080/bank/rest/profile/users/1/accounts/2
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+{
+  "id": 2,
+  "userId": 1,
+  "amount": 5.00
+}
+
+###
+
+PUT http://localhost:8080/bank/rest/profile/users/1/accounts/2
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+{
+  "id": 2,
+  "userId": 1,
+  "amount": 5.00
+}
+
+###
+
+PUT http://localhost:8080/bank/rest/profile/users/1/accounts/5
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+{
+  "id": 2,
+  "userId": 1,
+  "amount": 5.00
+}
+
+###
+
+PUT http://localhost:8080/bank/rest/profile/users/1/accounts/5
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+{
+  "id": 2,
+  "userId": 1,
+  "amount": 5.00
+}
+
+###
+
+PUT http://localhost:8080/bank/rest/profile/users/1/accounts/5
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+{
+  "id": 2,
+  "userId": 1,
+  "amount": 5.00
+}
+
+###
+
+PUT http://localhost:8080/bank/rest/profile/users/1/accounts/5
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+{
+  "id": 2,
+  "userId": 1,
+  "amount": 5.00
+}
+
+###
+
+PUT http://localhost:8080/bank/rest/profile/users/1/accounts/5
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+{
+  "id": 2,
+  "userId": 1,
+  "amount": 5.00
+}
+
+###
+
+PUT http://localhost:8080/bank/rest/profile/users/1/accounts/5
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+{
+  "id": 2,
+  "userId": 1,
+  "amount": 5.00
+}
+
+###
+
+PUT http://localhost:8080/bank/rest/profile/users/1/accounts/5
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+{
+  "id": 2,
+  "userId": 1,
+  "amount": 5.00
+}
+
+###
+
+PUT http://localhost:8080/bank/rest/profile/users/1/accounts/5
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+{
+  "id": 2,
+  "userId": 1,
+  "amount": 5.00
+}
+
+###
+
+POST http://localhost:8080/bank/rest/admin/users/1/accounts
+Authorization: Basic empl1 pass2
+Content-type: application/json; charset=utf-8
+
+{
+  "id": null,
+  "userId": 1,
+  "amount": 5.00
+}
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users/1/accounts
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+<> 2021-05-21T135844.200.txt
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users/1/accounts/1
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+<> 2021-05-21T135741.200.txt
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users/1/accounts
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+<> 2021-05-21T135703.200.txt
+
+###
+
+POST http://localhost:8080/bank/rest/admin/users
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+{
+  "id": null,
+  "login": "newuser",
+  "password": "newpass",
+  "fullName": "Novopov Novop Novopolzovovich",
+  "role": "USER",
+  "userType": "INDIVIDUAL"
+}
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users/5
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users/1?counterparties=true
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+<> 2021-05-21T132925.200.txt
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users/1?counterparties=true
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+<> 2021-05-21T132918.200.txt
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users?counterparties=true
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users/1?counterparties=true
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+<> 2021-05-21T132851.200.txt
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users?counterparties=true
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users?counterparties=true
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users?counterparties=true
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users/1
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users/1
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users/1
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users/1
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users/1
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users/payments?notconfirmed=true
+Authorization: Basic empl1 pass3
+Content-type: application/json; charset=utf-8
+
+###
+
+POST http://localhost:8080/bank/rest/profile/users/1/payments
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+{
+  "id": null,
+  "amount": 100.00,
+  "accountOwnerId": 2,
+  "counterpartyId": 3,
+  "isConfirmed": false
+}
+
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users/1/cards
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users/1
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users/1
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users/1
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users/1
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users/1
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users/1
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users/1
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users?counterparties=true
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+###
+
+GET http://localhost:8080/bank/rest/profile/users/1?counterparties=true
+Authorization: Basic user1 pass
+Content-type: application/json; charset=utf-8
+
+
+[
+  {
+    "login": "user2",
+    "fullName": "Semenov Semen Semenovich",
+    "userType": "INDIVIDUAL"
+  },
+  {
+    "login": "empl1",
+    "fullName": "Romanova Daria Romanovna",
+    "userType": "INDIVIDUAL"
+  }
+]
+
+
+<> 2021-05-21T125116.200.txt
+
+###
+

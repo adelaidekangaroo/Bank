@@ -15,7 +15,6 @@ public class App {
 
     public static void main(String[] args) throws IOException {
         DbConfig.initDb();
-
         server = HttpServer.create(new InetSocketAddress(PORT), 0);
         server.setExecutor(null); // creates a default executor
         server.start();

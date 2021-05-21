@@ -28,12 +28,10 @@ public class PaymentController extends AbstractController {
         });
     }
 
-    public void getAllUnconfirmed(boolean confirmed, HttpExchange exchange) {
+    public void getAllUnconfirmed(HttpExchange exchange) {
         handleErrors(exchange, () -> {
-            if (confirmed) {
-                List<Payment> payments = service.getAllUnconfirmed();
-                ResponseWrapper.sendWithBody(payments, exchange, OK_CODE);
-            }
+            List<Payment> payments = service.getAllUnconfirmed();
+            ResponseWrapper.sendWithBody(payments, exchange, OK_CODE);
         });
     }
 
@@ -67,8 +65,9 @@ public class PaymentController extends AbstractController {
                         switch (ids.size()) {
                             case 0:
                                 if (queries.containsKey("notconfirmed")) {
-                                    boolean confirmed = Boolean.parseBoolean(queries.get("notconfirmed"));
-                                    getAllUnconfirmed(confirmed, exchange);
+                                    if (Boolean.parseBoolean(queries.get("notconfirmed"))) {
+                                        getAllUnconfirmed(exchange);
+                                    }
                                 }
                                 break;
                             case 2:

@@ -20,9 +20,9 @@ public class UserController extends AbstractController {
 
     private final UserService service = new UserServiceImpl();
 
-    public void getAllCounterparties(HttpExchange exchange) {
+    public void getAllCounterparties(int userId, HttpExchange exchange) {
         handleErrors(exchange, () -> {
-            List<UserTo> users = service.getAllCounterparties(1);
+            List<UserTo> users = service.getAllCounterparties(userId);
             sendWithBody(users, exchange, OK_CODE);
         });
     }
@@ -52,13 +52,15 @@ public class UserController extends AbstractController {
         switch (role) {
             case USER:
                 if (GET.equals(method)) {
-                    switch (ids.size()) {
-                        case 0:
-                            getAllCounterparties(exchange);
-                            break;
-                        case 1:
-                            int userId = ids.get(0);
+                    if (ids.size() == 1) {
+                        int userId = ids.get(0);
+                        if (queries.containsKey("counterparties")) {
+                            if (Boolean.parseBoolean(queries.get("counterparties"))) {
+                                getAllCounterparties(userId, exchange);
+                            }
+                        } else {
                             getById(userId, exchange);
+                        }
                     }
                 }
                 break;

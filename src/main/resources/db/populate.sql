@@ -1,7 +1,7 @@
 INSERT INTO user(login, password, full_name, role)
-VALUES ('user1', 'pass', 'Иванов Иван Иванович', 'USER'),
-       ('user2', 'pass1', 'Семёнов Семён Семёнович', 'USER'),
-       ('empl1', 'pass2', 'Романова Дарья Ивановна', 'EMPLOYEE');
+VALUES ('user1', 'pass', 'Ivanov Ivan Ivanovich', 'USER'),
+       ('user2', 'pass1', 'Semenov Semen Semenovich', 'USER'),
+       ('empl1', 'pass2', 'Romanova Daria Romanovna', 'EMPLOYEE');
 
 INSERT INTO account(user_id, amount)
 VALUES (1, 0.00),

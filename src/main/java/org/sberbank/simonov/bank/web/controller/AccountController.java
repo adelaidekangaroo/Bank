@@ -72,6 +72,7 @@ public class AccountController extends AbstractController {
                         }
                         break;
                     case PUT:
+                        System.out.println(ids.size() == 2);
                         if (ids.size() == 2) update(ids.get(1), ids.get(0), exchange);
                         break;
                 }

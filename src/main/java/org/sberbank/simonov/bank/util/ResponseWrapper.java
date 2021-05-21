@@ -8,6 +8,7 @@ import org.sberbank.simonov.bank.exception.StorageException;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 
 import static org.sberbank.simonov.bank.util.RequestParser.getGson;
 import static org.sberbank.simonov.bank.web.Dispatcher.BAD_REQUEST_CODE;
@@ -19,8 +20,9 @@ public class ResponseWrapper {
         String json = getGson().toJson(object);
         try {
             exchange.sendResponseHeaders(code, json.getBytes().length);
+            exchange.getResponseHeaders().set("Content-Type", "charset=UTF-8");
             OutputStream output = exchange.getResponseBody();
-            output.write(json.getBytes());
+            output.write(json.getBytes(StandardCharsets.UTF_8));
             output.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -44,7 +46,10 @@ public class ResponseWrapper {
             runnable.run();
         } catch (StorageException e) {
             sendWithOutBody(exchange, INTERNAL_SERVER_ERROR_CODE);
-        } catch (NotFoundException | ImpossibleToCreateEntityException | ImpossibleToUpdateEntityException e) {
+        } catch (NotFoundException |
+                ImpossibleToCreateEntityException |
+                ImpossibleToUpdateEntityException |
+                IllegalArgumentException e) {
             sendWithOutBody(exchange, BAD_REQUEST_CODE);
         }
     }
