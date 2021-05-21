@@ -5,6 +5,8 @@ Stack:
 2. JDBC
 3. HttpServer
 4. JUnit, Hamcrest
+5. GSON
+6. H2 DATABASE
 
 [_API Documentation_](docs/api.md)
 
