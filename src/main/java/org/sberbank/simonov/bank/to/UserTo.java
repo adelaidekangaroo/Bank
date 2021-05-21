@@ -14,4 +14,16 @@ public class UserTo {
         this.fullName = user.getFullName();
         this.userType = user.getUserType();
     }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public UserType getUserType() {
+        return userType;
+    }
 }
