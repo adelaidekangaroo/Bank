@@ -5,6 +5,7 @@ import org.sberbank.simonov.bank.repository.jdbc.util.DbConfig;
 import org.sberbank.simonov.bank.web.Dispatcher;
 
 import java.io.IOException;
+import java.net.BindException;
 import java.net.InetSocketAddress;
 
 public class App {
@@ -16,9 +17,13 @@ public class App {
     public static void main(String[] args) throws IOException {
         DbConfig.initDb();
 
-        server = HttpServer.create(new InetSocketAddress(PORT), 0);
-        server.setExecutor(null); // creates a default executor
-        server.start();
+        try {
+            server = HttpServer.create(new InetSocketAddress(PORT), 0);
+            server.setExecutor(null); // creates a default executor
+            server.start();
+        } catch (BindException e) {
+            // server already run
+        }
 
         dispatcher = new Dispatcher(server);
     }

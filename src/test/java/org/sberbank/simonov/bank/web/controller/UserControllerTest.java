@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 import static org.sberbank.simonov.bank.data.UserTestData.*;
 import static org.sberbank.simonov.bank.web.Dispatcher.*;
 
-public class UserControllerTest extends CardControllerTest {
+public class UserControllerTest extends InitControllerTest {
 
     @Test
     public void getAllCounterparties() throws IOException {
