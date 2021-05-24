@@ -27,10 +27,10 @@ public class CardRepositoryImplTest extends InitRepositoryTest {
 
     @Test
     public void update() {
-        Card created = updated();
-        repository.save(created);
-        Card received = repository.getById(created.getId());
-        Assert.assertEquals(received, created);
+        Card updated = updated();
+        repository.save(updated);
+        Card received = repository.getById(updated.getId());
+        Assert.assertEquals(received, updated);
     }
 
     @Test
