@@ -1,5 +1,7 @@
 package org.sberbank.simonov.bank.repository.jdbc.util;
 
+import org.apache.maven.model.Model;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -24,13 +26,18 @@ public class DbConfig {
     }
 
     public static void initDb() {
-        try {
-           String init = new String(Files.readAllBytes(Paths.get("src/main/resources/db/init.sql")))
-            + new String(Files.readAllBytes(Paths.get("src/main/resources/db/populate.sql")));
-            executeScript(init);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String init = new BufferedReader(
+                new InputStreamReader(
+                        Objects.requireNonNull(Model.class.getClassLoader().getResourceAsStream("db/init.sql"))
+                )
+        ).lines().collect(Collectors.joining());
+        String populate = new BufferedReader(
+                new InputStreamReader(
+                        Objects.requireNonNull(Model.class.getClassLoader().getResourceAsStream("db/populate.sql"))
+                )
+        ).lines().collect(Collectors.joining());
+
+        executeScript(init + populate);
     }
 
     public static void executeScript(String script) {
