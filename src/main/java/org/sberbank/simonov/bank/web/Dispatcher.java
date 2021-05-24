@@ -42,8 +42,8 @@ public class Dispatcher {
 
     public Dispatcher(HttpServer server) {
         AuthUserService authService = new UserServiceImpl();
-        server.createContext(userContext, exchange -> dispatch(exchange, userContext, USER));
-              //  .setAuthenticator(authService.getAuthByRole(USER));
+        server.createContext(userContext, exchange -> dispatch(exchange, userContext, USER))
+                .setAuthenticator(authService.getAuthByRole(USER));
         server.createContext(employeeContext, exchange -> dispatch(exchange, employeeContext, EMPLOYEE))
                 .setAuthenticator(authService.getAuthByRole(EMPLOYEE));
     }
