@@ -10,6 +10,8 @@ Content-type: application/json; charset=utf-8
 Authorization: Basic user1 pass
 
 ```
+_**CURL**_: **`curl -s http://localhost:8080/bank/rest/profile/users/1 --user user1:pass`**
+
 ```
 
 Response
@@ -37,6 +39,8 @@ Content-type: application/json; charset=utf-8
 Authorization: Basic user1 pass
 
 ```
+**_CURL_**: `curl -s http://localhost:8080/bank/rest/profile/users/5 --user user1:pass`
+
 ```
 
 Response
@@ -64,6 +68,7 @@ Content-type: application/json; charset=utf-8
 }
 
 ```
+**_CURL_**: `curl -s -X POST -d '{"id": null,"login": "newuser","password": "newpass","fullName": "Novopov Novop Novopolzovovich","role": "USER","userType": "INDIVIDUAL"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/bank/rest/admin/users --user empl1:pass2`
 ```
 
 Response
@@ -78,7 +83,7 @@ Content-length: 0
 Request
 
 POST http://localhost:8080/bank/rest/admin/users
-Authorization: Basic empl1 pass2
+Authorization: Basic user1 pass
 Content-type: application/json; charset=utf-8
 
 {
@@ -91,6 +96,8 @@ Content-type: application/json; charset=utf-8
 }
 
 ```
+**_CURL_**: `curl -s -X POST -d '{"id": null,"login": "newuser","password": "newpass","fullName": "Novopov Novop Novopolzovovich","role": "USER","userType": "INDIVIDUAL"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/bank/rest/admin/users --user user1:pass`
+
 ```
 
 Response
@@ -111,6 +118,7 @@ Authorization: Basic user1 pass
 Content-type: application/json; charset=utf-8
 
 ```
+**_CURL_**: `curl -s http://localhost:8080/bank/rest/profile/users/1?counterparties=true --user user1:pass`
 ```
 
 Response
@@ -147,6 +155,7 @@ Authorization: Basic user1 pass
 Content-type: application/json; charset=utf-8
 
 ```
+**_CURL_**: `curl -s http://localhost:8080/bank/rest/profile/users/1/accounts/1 --user user1:pass`
 ```
 
 Response
@@ -174,6 +183,7 @@ Authorization: Basic user1 pass
 Content-type: application/json; charset=utf-8
 
 ```
+**_CURL_**: `curl -s http://localhost:8080/bank/rest/profile/users/1/accounts --user user1:pass`
 ```
 
 Response
@@ -212,6 +222,7 @@ Content-type: application/json; charset=utf-8
 }
 
 ```
+**_CURL_**: `curl -s -X POST -d '{"id": null,"userId": 1,"amount": 5.00}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/bank/rest/admin/users/1/accounts --user empl1:pass2`
 ```
 
 Response
@@ -236,6 +247,7 @@ Content-type: application/json; charset=utf-8
 }
 
 ```
+**_CURL_**: `curl -s -X PUT -d '{"id": 2,"userId": 1,"amount": 5.00}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/bank/rest/admin/users/1/accounts/2 --user user1:pass`
 ```
 
 Response
@@ -256,6 +268,7 @@ Authorization: Basic user1 pass
 Content-type: application/json; charset=utf-8
 
 ```
+**_CURL_**: `curl -s http://localhost:8080/bank/rest/profile/users/1/cards/1 --user user1:pass`
 ```
 
 Response
@@ -285,6 +298,7 @@ Authorization: Basic user1 pass
 Content-type: application/json; charset=utf-8
 
 ```
+**_CURL_**: `curl -s http://localhost:8080/bank/rest/profile/users/1/cards --user user1:pass`
 ```
 
 Response
@@ -319,10 +333,11 @@ Body:
 Request
 
 GET http://localhost:8080/bank/rest/profile/users/cards?notconfirmed=true
-Authorization: Basic empl1 pass3
+Authorization: Basic empl1 pass2
 Content-type: application/json; charset=utf-8
 
 ```
+**_CURL_**: `curl -s http://localhost:8080/bank/rest/profile/users/cards?notconfirmed=true --user empl1:pass2`
 ```
 
 Response
@@ -372,7 +387,6 @@ POST http://localhost:8080/bank/rest/profile/users/1/cards
 Authorization: Basic user1 pass
 Content-type: application/json; charset=utf-8
 
-
 {
   "id": null,
   "accountId": 1,
@@ -381,6 +395,7 @@ Content-type: application/json; charset=utf-8
   "isConfirmed": false
 }
 ```
+**_CURL_**: `curl -s -X POST -d '{"id": null,"accountId": 1,"isActive": false,"number": 1111111111111112,"isConfirmed": false}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/bank/rest/profile/users/1/cards --user user1:pass`
 ```
 
 Response
@@ -390,7 +405,7 @@ Date: Fri, 21 May 2021 11:15:42 GMT
 Content-length: 0
 
 ```
-### Update
+### Confirm
 ```
 Request
 
@@ -407,6 +422,7 @@ Content-type: application/json; charset=utf-8
 }
 
 ```
+**_CURL_**: `curl -s -X PUT -d '{"id": 2,"accountId": 2,"isActive": true,"number": 1234567890123456,"isConfirmed": true}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/bank/rest/admin/users/1/cards/2 --user user1:pass`
 ```
 
 Response
@@ -427,6 +443,7 @@ Authorization: Basic user1 pass
 Content-type: application/json; charset=utf-8
 
 ```
+**_CURL_**: `curl -s http://localhost:8080/bank/rest/profile/users/1/payments/1 --user user1:pass`
 ```
 
 Response
@@ -458,6 +475,7 @@ Authorization: Basic empl1 pass3
 Content-type: application/json; charset=utf-8
 
 ```
+**_CURL_**: `curl -s http://localhost:8080/bank/rest/profile/users/payments?notconfirmed=true --user user1:pass`
 ```
 
 Response
@@ -505,6 +523,7 @@ Content-type: application/json; charset=utf-8
 }
 
 ```
+**_CURL_**: `curl -s -X PUT -d '{"id": 1,"amount": 100.00,"accountOwnerId": 2,"counterpartyId": 3,"isConfirmed": false}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/bank/rest/admin/users/1/payments/1 --user empl1:pass2`
 ```
 
 Response
@@ -530,6 +549,7 @@ Content-type: application/json; charset=utf-8
   "isConfirmed": false
 }
 ```
+**_CURL_**: `curl -s -X PUT -d '{"id": null,"amount": 100.00,"accountOwnerId": 2,"counterpartyId": 3,"isConfirmed": false}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/bank/rest/profile/users/1/payments --user user1:pass`
 ```
 
 Response

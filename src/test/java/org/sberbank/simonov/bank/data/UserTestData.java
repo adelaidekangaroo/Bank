@@ -9,14 +9,14 @@ import static org.sberbank.simonov.bank.model.UserType.LEGAL_ENTITY;
 
 public class UserTestData {
 
-    public static final User USER_1 = new User(1, "user1", "pass", "Иванов Иван Иванович", USER, INDIVIDUAL);
-    public static final User USER_2 = new User(2, "user2", "pass1", "Семёнов Семён Семёнович", USER, INDIVIDUAL);
-    public static final User USER_3 = new User(3, "empl1", "pass2", "Романова Дарья Ивановна", EMPLOYEE, INDIVIDUAL);
+    public static final User USER_1 = new User(1, "user1", "pass", "Ivanov Ivan Ivanovich", USER, INDIVIDUAL);
+    public static final User USER_2 = new User(2, "user2", "pass1", "Semenov Semen Semenovich", USER, INDIVIDUAL);
+    public static final User USER_3 = new User(3, "empl1", "pass2", "Romanova Daria Romanovna", EMPLOYEE, INDIVIDUAL);
 
     public static final int NEW_USER_ID = USER_3.getId() + 1;
 
     public static User created() {
-        return new User("newuser", "newpass", "Новопов Новоп Новопользовович", USER, INDIVIDUAL);
+        return new User("newuser", "newpass", "Novopov Novop Novopolzovovich", USER, INDIVIDUAL);
     }
 
     public static User updated() {

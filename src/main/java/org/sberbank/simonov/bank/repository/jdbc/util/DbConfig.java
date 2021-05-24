@@ -1,6 +1,8 @@
 package org.sberbank.simonov.bank.repository.jdbc.util;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -9,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class DbConfig {
 
@@ -22,7 +25,7 @@ public class DbConfig {
 
     public static void initDb() {
         try {
-            String init = new String(Files.readAllBytes(Paths.get("src/main/resources/db/init.sql")))
+           String init = new String(Files.readAllBytes(Paths.get("src/main/resources/db/init.sql")))
             + new String(Files.readAllBytes(Paths.get("src/main/resources/db/populate.sql")));
             executeScript(init);
         } catch (IOException e) {
