@@ -5,6 +5,7 @@ import org.sberbank.simonov.bank.model.Account;
 import org.sberbank.simonov.bank.model.Role;
 import org.sberbank.simonov.bank.service.AccountService;
 import org.sberbank.simonov.bank.service.impl.AccountServiceImpl;
+import org.sberbank.simonov.bank.util.ResponseWrapper;
 
 import java.util.List;
 import java.util.Map;
@@ -82,6 +83,8 @@ public class AccountController extends AbstractController {
                     if (ids.size() == 1) create(ids.get(0), exchange);
                 }
                 break;
+            default:
+                sendWithOutBody(exchange, BAD_REQUEST_CODE);
         }
     }
 }

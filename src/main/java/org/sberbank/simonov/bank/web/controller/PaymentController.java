@@ -85,6 +85,8 @@ public class PaymentController extends AbstractController {
                     if (ids.size() == 2) confirm(ids.get(1), exchange);
                 }
                 break;
+            default:
+                sendWithOutBody(exchange, BAD_REQUEST_CODE);
         }
     }
 }

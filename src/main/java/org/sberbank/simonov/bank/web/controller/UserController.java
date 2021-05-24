@@ -69,6 +69,8 @@ public class UserController extends AbstractController {
                     if (ids.size() == 0) create(exchange);
                 }
                 break;
+            default:
+                sendWithOutBody(exchange, BAD_REQUEST_CODE);
         }
     }
 }

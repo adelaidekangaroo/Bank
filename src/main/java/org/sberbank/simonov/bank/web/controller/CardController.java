@@ -94,6 +94,8 @@ public class CardController extends AbstractController {
                     if (ids.size() == 2) update(exchange, ids.get(1));
                 }
                 break;
+            default:
+                sendWithOutBody(exchange, BAD_REQUEST_CODE);
         }
     }
 }
