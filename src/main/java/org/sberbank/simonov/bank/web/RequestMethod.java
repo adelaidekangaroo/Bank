@@ -7,6 +7,5 @@ public class RequestMethod {
     public static final String DELETE = "DELETE";
 
     private RequestMethod() {
-
     }
 }

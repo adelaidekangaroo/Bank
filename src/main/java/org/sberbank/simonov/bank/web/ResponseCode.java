@@ -8,6 +8,5 @@ public class ResponseCode {
     public static final int INTERNAL_SERVER_ERROR_CODE = 500;
 
     private ResponseCode() {
-
     }
 }
