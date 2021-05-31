@@ -1,0 +1,12 @@
+package org.sberbank.simonov.bank.web;
+
+public class RequestMethod {
+    public static final String GET = "GET";
+    public static final String POST = "POST";
+    public static final String PUT = "PUT";
+    public static final String DELETE = "DELETE";
+
+    private RequestMethod() {
+
+    }
+}

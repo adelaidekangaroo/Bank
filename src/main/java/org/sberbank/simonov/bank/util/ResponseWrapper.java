@@ -11,8 +11,8 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 
 import static org.sberbank.simonov.bank.util.RequestParser.getGson;
-import static org.sberbank.simonov.bank.web.Dispatcher.BAD_REQUEST_CODE;
-import static org.sberbank.simonov.bank.web.Dispatcher.INTERNAL_SERVER_ERROR_CODE;
+import static org.sberbank.simonov.bank.web.ResponseCode.BAD_REQUEST_CODE;
+import static org.sberbank.simonov.bank.web.ResponseCode.INTERNAL_SERVER_ERROR_CODE;
 
 public class ResponseWrapper {
 

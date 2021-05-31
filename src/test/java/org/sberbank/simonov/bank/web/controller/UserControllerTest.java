@@ -19,7 +19,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.assertEquals;
 import static org.sberbank.simonov.bank.data.UserTestData.*;
-import static org.sberbank.simonov.bank.web.Dispatcher.*;
+import static org.sberbank.simonov.bank.web.RequestMethod.GET;
+import static org.sberbank.simonov.bank.web.RequestMethod.POST;
+import static org.sberbank.simonov.bank.web.ResponseCode.CREATED_CODE;
+import static org.sberbank.simonov.bank.web.ResponseCode.OK_CODE;
 
 public class UserControllerTest extends InitControllerTest {
 

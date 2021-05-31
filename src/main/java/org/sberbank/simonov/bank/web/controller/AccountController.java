@@ -11,7 +11,8 @@ import java.util.Map;
 
 import static org.sberbank.simonov.bank.util.RequestParser.parseJsonBodyFromExchange;
 import static org.sberbank.simonov.bank.util.ResponseWrapper.*;
-import static org.sberbank.simonov.bank.web.Dispatcher.*;
+import static org.sberbank.simonov.bank.web.RequestMethod.*;
+import static org.sberbank.simonov.bank.web.ResponseCode.*;
 
 public class AccountController extends AbstractController {
 

@@ -5,8 +5,10 @@ import com.sun.net.httpserver.HttpServer;
 import org.sberbank.simonov.bank.model.Role;
 import org.sberbank.simonov.bank.service.impl.UserServiceImpl;
 import org.sberbank.simonov.bank.service.impl.auth.AuthUserService;
+import org.sberbank.simonov.bank.util.Config;
 import org.sberbank.simonov.bank.util.RequestParser;
 import org.sberbank.simonov.bank.util.ResponseWrapper;
+import org.sberbank.simonov.bank.util.WebConfig;
 import org.sberbank.simonov.bank.web.controller.*;
 
 import java.util.ArrayList;
@@ -16,22 +18,9 @@ import java.util.Map;
 
 import static org.sberbank.simonov.bank.model.Role.EMPLOYEE;
 import static org.sberbank.simonov.bank.model.Role.USER;
+import static org.sberbank.simonov.bank.web.ResponseCode.BAD_REQUEST_CODE;
 
 public class Dispatcher {
-
-    private static final String userContext = "/bank/rest/profile/";
-    private static final String employeeContext = "/bank/rest/admin/";
-
-    public static final String GET = "GET";
-    public static final String POST = "POST";
-    public static final String PUT = "PUT";
-    public static final String DELETE = "DELETE";
-
-    public static final int OK_CODE = 200;
-    public static final int CREATED_CODE = 201;
-    public static final int NO_CONTENT_CODE = 204;
-    public static final int BAD_REQUEST_CODE = 400;
-    public static final int INTERNAL_SERVER_ERROR_CODE = 500;
 
     private final List<AbstractController> controllers = Arrays.asList(
             new UserController(),
@@ -42,9 +31,9 @@ public class Dispatcher {
 
     public Dispatcher(HttpServer server) {
         AuthUserService authService = new UserServiceImpl();
-        server.createContext(userContext, exchange -> dispatch(exchange, userContext, USER))
+        server.createContext(WebConfig.get().SERVER_USER_CONTEXT, exchange -> dispatch(exchange, WebConfig.get().SERVER_USER_CONTEXT, USER))
                 .setAuthenticator(authService.getAuthByRole(USER));
-        server.createContext(employeeContext, exchange -> dispatch(exchange, employeeContext, EMPLOYEE))
+        server.createContext(WebConfig.get().SERVER_ADMIN_CONTEXT, exchange -> dispatch(exchange, WebConfig.get().SERVER_ADMIN_CONTEXT, EMPLOYEE))
                 .setAuthenticator(authService.getAuthByRole(EMPLOYEE));
     }
 

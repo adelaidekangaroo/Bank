@@ -11,8 +11,10 @@ import java.util.List;
 import java.util.Map;
 
 import static org.sberbank.simonov.bank.util.RequestParser.parseJsonBodyFromExchange;
-import static org.sberbank.simonov.bank.web.Dispatcher.*;
 import static org.sberbank.simonov.bank.util.ResponseWrapper.*;
+import static org.sberbank.simonov.bank.web.RequestMethod.GET;
+import static org.sberbank.simonov.bank.web.RequestMethod.POST;
+import static org.sberbank.simonov.bank.web.ResponseCode.*;
 
 public class UserController extends AbstractController {
 

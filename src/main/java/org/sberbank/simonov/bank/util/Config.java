@@ -6,12 +6,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Objects;
 import java.util.Properties;
 
-public class Config {
+public class Config extends AbstractConfig {
 
-    private static final File PROPS = getPropsFile();
+    private static final File DB_PROPS = getPropsFile("db/h2.properties");
     private static final Config INSTANCE = new Config();
 
     private final DbConfig storage;
@@ -20,27 +19,21 @@ public class Config {
         return INSTANCE;
     }
 
-    private static File getPropsFile() {
-        String path = Config.class.getClassLoader().getResource("db/h2.properties").getPath();
-        Objects.requireNonNull(path);
-        return new File(path);
-    }
-
     private Config() {
-        try (InputStream is = new FileInputStream(PROPS)) {
-            Properties properties = new Properties();
-            properties.load(is);
+        try (InputStream isDb = new FileInputStream(DB_PROPS)) {
+            Properties dbProperties = new Properties();
+            dbProperties.load(isDb);
             storage = new DbConfig(
-                    properties.getProperty("db.url"),
-                    properties.getProperty("db.user"),
-                    properties.getProperty("db.password"),
-                    properties.getProperty("db.driver"),
-                    properties.getProperty("db.init"),
-                    properties.getProperty("db.populate")
+                    dbProperties.getProperty("db.url"),
+                    dbProperties.getProperty("db.user"),
+                    dbProperties.getProperty("db.password"),
+                    dbProperties.getProperty("db.driver"),
+                    dbProperties.getProperty("db.init"),
+                    dbProperties.getProperty("db.populate")
 
             );
         } catch (IOException e) {
-            throw new IllegalStateException("Invalid config file " + PROPS);
+            throw new IllegalStateException("Invalid config file " + DB_PROPS);
         }
     }
 

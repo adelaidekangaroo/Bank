@@ -11,9 +11,10 @@ import java.util.List;
 import java.util.Map;
 
 import static org.sberbank.simonov.bank.util.RequestParser.parseJsonBodyFromExchange;
-import static org.sberbank.simonov.bank.web.Dispatcher.*;
 import static org.sberbank.simonov.bank.util.ResponseWrapper.handleErrors;
 import static org.sberbank.simonov.bank.util.ResponseWrapper.sendWithOutBody;
+import static org.sberbank.simonov.bank.web.RequestMethod.*;
+import static org.sberbank.simonov.bank.web.ResponseCode.*;
 
 public class PaymentController extends AbstractController {
 

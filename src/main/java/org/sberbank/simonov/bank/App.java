@@ -2,6 +2,7 @@ package org.sberbank.simonov.bank;
 
 import com.sun.net.httpserver.HttpServer;
 import org.sberbank.simonov.bank.util.Config;
+import org.sberbank.simonov.bank.util.WebConfig;
 import org.sberbank.simonov.bank.web.Dispatcher;
 
 import java.io.IOException;
@@ -10,7 +11,6 @@ import java.net.InetSocketAddress;
 
 public class App {
 
-    public static final int PORT = 8080;
     public static HttpServer server;
     public static Dispatcher dispatcher;
 
@@ -18,7 +18,7 @@ public class App {
         Config.get().getStorage().initDb();
 
         try {
-            server = HttpServer.create(new InetSocketAddress(PORT), 0);
+            server = HttpServer.create(new InetSocketAddress(WebConfig.get().SERVER_PORT), WebConfig.get().SERVER_BACKLOG);
             server.setExecutor(null); // creates a default executor
             server.start();
         } catch (BindException e) {
