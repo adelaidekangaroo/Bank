@@ -8,7 +8,7 @@ import org.sberbank.simonov.bank.model.User;
 import org.sberbank.simonov.bank.repository.UserRepository;
 import org.sberbank.simonov.bank.repository.jdbc.UserRepositoryImpl;
 import org.sberbank.simonov.bank.service.UserService;
-import org.sberbank.simonov.bank.service.impl.auth.AuthUserService;
+import org.sberbank.simonov.bank.service.impl.auth.AuthService;
 import org.sberbank.simonov.bank.service.impl.auth.CredentialChecker;
 import org.sberbank.simonov.bank.service.impl.cache.AuthCache;
 import org.sberbank.simonov.bank.to.UserTo;
@@ -22,7 +22,7 @@ import static org.sberbank.simonov.bank.service.impl.auth.PasswordCoder.encode;
 import static org.sberbank.simonov.bank.service.impl.auth.PasswordCoder.equalsPasswords;
 import static org.sberbank.simonov.bank.util.ValidationUtil.*;
 
-public class UserServiceImpl implements UserService, AuthUserService {
+public class UserServiceImpl implements UserService, AuthService {
 
     private final UserRepository repository = new UserRepositoryImpl();
 

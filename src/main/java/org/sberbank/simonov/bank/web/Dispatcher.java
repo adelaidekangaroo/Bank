@@ -4,7 +4,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 import org.sberbank.simonov.bank.model.Role;
 import org.sberbank.simonov.bank.service.impl.UserServiceImpl;
-import org.sberbank.simonov.bank.service.impl.auth.AuthUserService;
+import org.sberbank.simonov.bank.service.impl.auth.AuthService;
 import org.sberbank.simonov.bank.util.RequestParser;
 import org.sberbank.simonov.bank.util.ResponseWrapper;
 import org.sberbank.simonov.bank.util.config.WebConfig;
@@ -29,7 +29,7 @@ public class Dispatcher {
     );
 
     public Dispatcher(HttpServer server) {
-        AuthUserService authService = new UserServiceImpl();
+        AuthService authService = new UserServiceImpl();
         server.createContext(WebConfig.get().SERVER_USER_CONTEXT, exchange -> dispatch(exchange, WebConfig.get().SERVER_USER_CONTEXT, USER))
                 .setAuthenticator(authService.getAuthByRole(USER));
         server.createContext(WebConfig.get().SERVER_ADMIN_CONTEXT, exchange -> dispatch(exchange, WebConfig.get().SERVER_ADMIN_CONTEXT, EMPLOYEE))
