@@ -1,11 +1,6 @@
 package org.sberbank.simonov.bank.repository.jdbc;
 
-import org.junit.Before;
-import org.sberbank.simonov.bank.repository.jdbc.util.DbConfig;
+import org.sberbank.simonov.bank.ResetDbTest;
 
-public abstract class InitRepositoryTest {
-    @Before
-    public void resetDb() {
-        DbConfig.initDb();
-    }
+public abstract class InitRepositoryTest extends ResetDbTest {
 }
