@@ -10,12 +10,16 @@ import org.sberbank.simonov.bank.repository.jdbc.UserRepositoryImpl;
 import org.sberbank.simonov.bank.service.UserService;
 import org.sberbank.simonov.bank.service.impl.auth.AuthUserService;
 import org.sberbank.simonov.bank.service.impl.auth.CredentialChecker;
+import org.sberbank.simonov.bank.service.impl.cache.AuthCache;
 import org.sberbank.simonov.bank.to.UserTo;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
+import static org.sberbank.simonov.bank.model.Role.EMPLOYEE;
+import static org.sberbank.simonov.bank.service.impl.auth.PasswordCoder.encode;
+import static org.sberbank.simonov.bank.service.impl.auth.PasswordCoder.equalsPasswords;
 import static org.sberbank.simonov.bank.util.ValidationUtil.*;
 
 public class UserServiceImpl implements UserService, AuthUserService {
@@ -26,17 +30,9 @@ public class UserServiceImpl implements UserService, AuthUserService {
     public Authenticator getAuthByRole(Role role) {
         switch (role) {
             case USER:
-                return getAuth((login, password) -> {
-                    User user = repository.getByLogin(login);
-                    if (user == null) return false;
-                    else return user.getPassword().equals(password);
-                });
+                return getAuth((user, login, password) -> equalsPasswords(user.getPassword(), password));
             case EMPLOYEE:
-                return getAuth((login, password) -> {
-                    User user = repository.getByLogin(login);
-                    if (user == null) return false;
-                    else return user.getPassword().equals(password) && user.getRole() == Role.EMPLOYEE;
-                });
+                return getAuth((user, login, password) -> equalsPasswords(user.getPassword(), password) && user.getRole() == EMPLOYEE);
             default:
                 throw new IllegalArgumentException();
         }
@@ -47,7 +43,18 @@ public class UserServiceImpl implements UserService, AuthUserService {
             @Override
             public boolean checkCredentials(String login, String password) {
                 try {
-                    return checker.check(login, password);
+                    String encodePassword = encode(password);
+                    User user = AuthCache.get(login);
+                    if (user != null) {
+                        return checker.check(user, login, encodePassword);
+                    } else {
+                        user = repository.getByLogin(login);
+                        if (user == null) return false;
+                        else {
+                            AuthCache.putToMap(login, user);
+                            return checker.check(user, login, encodePassword);
+                        }
+                    }
                 } catch (StorageException e) {
                     return false;
                 }
