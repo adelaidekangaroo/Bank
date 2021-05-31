@@ -5,16 +5,16 @@ import org.sberbank.simonov.bank.model.Payment;
 import org.sberbank.simonov.bank.model.Role;
 import org.sberbank.simonov.bank.service.PaymentService;
 import org.sberbank.simonov.bank.service.impl.PaymentServiceImpl;
-import org.sberbank.simonov.bank.util.ResponseWrapper;
+import org.sberbank.simonov.bank.web.util.ResponseWrapper;
 
 import java.util.List;
 import java.util.Map;
 
-import static org.sberbank.simonov.bank.util.RequestParser.parseJsonBodyFromExchange;
-import static org.sberbank.simonov.bank.util.ResponseWrapper.handleErrors;
-import static org.sberbank.simonov.bank.util.ResponseWrapper.sendWithOutBody;
-import static org.sberbank.simonov.bank.web.RequestMethod.*;
-import static org.sberbank.simonov.bank.web.ResponseCode.*;
+import static org.sberbank.simonov.bank.web.util.RequestParser.parseJsonBodyFromExchange;
+import static org.sberbank.simonov.bank.web.util.ResponseWrapper.handleErrors;
+import static org.sberbank.simonov.bank.web.util.ResponseWrapper.sendWithOutBody;
+import static org.sberbank.simonov.bank.web.util.RequestMethod.*;
+import static org.sberbank.simonov.bank.web.util.ResponseCode.*;
 
 public class PaymentController extends AbstractController {
 

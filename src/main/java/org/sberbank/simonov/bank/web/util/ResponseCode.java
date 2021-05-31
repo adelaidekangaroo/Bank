@@ -1,4 +1,4 @@
-package org.sberbank.simonov.bank.web;
+package org.sberbank.simonov.bank.web.util;
 
 public class ResponseCode {
     public static final int OK_CODE = 200;

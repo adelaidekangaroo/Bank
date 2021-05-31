@@ -6,8 +6,8 @@ import org.sberbank.simonov.bank.model.Role;
 import java.util.List;
 import java.util.Map;
 
-import static org.sberbank.simonov.bank.util.RequestParser.getIds;
-import static org.sberbank.simonov.bank.util.RequestParser.getUrlPattern;
+import static org.sberbank.simonov.bank.web.util.RequestParser.getIds;
+import static org.sberbank.simonov.bank.web.util.RequestParser.getUrlPattern;
 
 public abstract class AbstractController {
 

@@ -1,4 +1,4 @@
-package org.sberbank.simonov.bank.util;
+package org.sberbank.simonov.bank.web.util;
 
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;

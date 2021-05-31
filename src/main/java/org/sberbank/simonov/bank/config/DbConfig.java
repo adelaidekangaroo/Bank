@@ -1,4 +1,4 @@
-package org.sberbank.simonov.bank.util.config;
+package org.sberbank.simonov.bank.config;
 
 import org.sberbank.simonov.bank.repository.jdbc.util.DbConnect;
 

@@ -1,4 +1,4 @@
-package org.sberbank.simonov.bank.util;
+package org.sberbank.simonov.bank.web.util;
 
 import com.sun.net.httpserver.HttpExchange;
 import org.sberbank.simonov.bank.exception.ImpossibleToCreateEntityException;
@@ -10,9 +10,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 
-import static org.sberbank.simonov.bank.util.RequestParser.getGson;
-import static org.sberbank.simonov.bank.web.ResponseCode.BAD_REQUEST_CODE;
-import static org.sberbank.simonov.bank.web.ResponseCode.INTERNAL_SERVER_ERROR_CODE;
+import static org.sberbank.simonov.bank.web.util.RequestParser.getGson;
+import static org.sberbank.simonov.bank.web.util.ResponseCode.BAD_REQUEST_CODE;
+import static org.sberbank.simonov.bank.web.util.ResponseCode.INTERNAL_SERVER_ERROR_CODE;
 
 public class ResponseWrapper {
 

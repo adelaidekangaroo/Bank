@@ -1,4 +1,4 @@
-package org.sberbank.simonov.bank.web;
+package org.sberbank.simonov.bank.web.util;
 
 public class RequestMethod {
     public static final String GET = "GET";

@@ -19,8 +19,8 @@ import static org.junit.Assert.assertEquals;
 import static org.sberbank.simonov.bank.data.CardTestData.*;
 import static org.sberbank.simonov.bank.data.UserTestData.EMPL_1_CREDENTIALS;
 import static org.sberbank.simonov.bank.data.UserTestData.USER_1_CREDENTIALS;
-import static org.sberbank.simonov.bank.web.RequestMethod.*;
-import static org.sberbank.simonov.bank.web.ResponseCode.*;
+import static org.sberbank.simonov.bank.web.util.RequestMethod.*;
+import static org.sberbank.simonov.bank.web.util.ResponseCode.*;
 
 public class CardControllerTest extends InitControllerTest {
 

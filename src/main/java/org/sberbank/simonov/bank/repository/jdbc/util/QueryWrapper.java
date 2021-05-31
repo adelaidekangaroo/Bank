@@ -2,7 +2,7 @@ package org.sberbank.simonov.bank.repository.jdbc.util;
 
 import org.sberbank.simonov.bank.exception.StorageException;
 import org.sberbank.simonov.bank.model.abstraction.BaseEntity;
-import org.sberbank.simonov.bank.util.config.DbConfig;
+import org.sberbank.simonov.bank.config.DbConfig;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

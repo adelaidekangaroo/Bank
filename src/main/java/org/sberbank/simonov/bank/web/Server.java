@@ -1,8 +1,8 @@
 package org.sberbank.simonov.bank.web;
 
 import com.sun.net.httpserver.HttpServer;
-import org.sberbank.simonov.bank.util.config.DbConfig;
-import org.sberbank.simonov.bank.util.config.WebConfig;
+import org.sberbank.simonov.bank.config.DbConfig;
+import org.sberbank.simonov.bank.config.WebConfig;
 
 import java.io.IOException;
 import java.net.BindException;
