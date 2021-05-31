@@ -13,4 +13,4 @@ Stack:
 [_API Documentation_](docs/api.md)
 
 ### DB diargam
-![](diagram.png)
+![](docs/diagram.png)
