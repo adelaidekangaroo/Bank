@@ -5,10 +5,9 @@ import com.sun.net.httpserver.HttpServer;
 import org.sberbank.simonov.bank.model.Role;
 import org.sberbank.simonov.bank.service.impl.UserServiceImpl;
 import org.sberbank.simonov.bank.service.impl.auth.AuthUserService;
-import org.sberbank.simonov.bank.util.Config;
 import org.sberbank.simonov.bank.util.RequestParser;
 import org.sberbank.simonov.bank.util.ResponseWrapper;
-import org.sberbank.simonov.bank.util.WebConfig;
+import org.sberbank.simonov.bank.util.config.WebConfig;
 import org.sberbank.simonov.bank.web.controller.*;
 
 import java.util.ArrayList;

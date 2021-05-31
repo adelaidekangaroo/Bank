@@ -1,8 +1,8 @@
 package org.sberbank.simonov.bank;
 
 import com.sun.net.httpserver.HttpServer;
-import org.sberbank.simonov.bank.util.Config;
-import org.sberbank.simonov.bank.util.WebConfig;
+import org.sberbank.simonov.bank.util.config.DbConfig;
+import org.sberbank.simonov.bank.util.config.WebConfig;
 import org.sberbank.simonov.bank.web.Dispatcher;
 
 import java.io.IOException;
@@ -15,10 +15,13 @@ public class App {
     public static Dispatcher dispatcher;
 
     public static void main(String[] args) throws IOException {
-        Config.get().getStorage().initDb();
+        DbConfig.get().getConnect().initDb();
 
         try {
-            server = HttpServer.create(new InetSocketAddress(WebConfig.get().SERVER_PORT), WebConfig.get().SERVER_BACKLOG);
+            server = HttpServer.create(
+                    new InetSocketAddress(WebConfig.get().SERVER_PORT),
+                    WebConfig.get().SERVER_BACKLOG
+            );
             server.setExecutor(null); // creates a default executor
             server.start();
         } catch (BindException e) {

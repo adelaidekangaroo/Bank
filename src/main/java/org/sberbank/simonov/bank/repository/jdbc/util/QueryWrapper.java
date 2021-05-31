@@ -2,7 +2,7 @@ package org.sberbank.simonov.bank.repository.jdbc.util;
 
 import org.sberbank.simonov.bank.exception.StorageException;
 import org.sberbank.simonov.bank.model.abstraction.BaseEntity;
-import org.sberbank.simonov.bank.util.Config;
+import org.sberbank.simonov.bank.util.config.DbConfig;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +18,7 @@ public class QueryWrapper {
 
     public static <T> boolean wrap(QueryExecutor<T> executor, boolean isTransaction) {
         boolean isExecuted = false;
-        try (Connection connection = Config.get().getStorage().getConnection()) {
+        try (Connection connection = DbConfig.get().getConnect().getConnection()) {
             if (isTransaction) {
                 try {
                     connection.setAutoCommit(false);
@@ -38,7 +38,7 @@ public class QueryWrapper {
 
     public static boolean saveWrap(FillingStatement executor, String sql) {
         boolean isExecuted = false;
-        try (Connection connection = Config.get().getStorage().getConnection();
+        try (Connection connection = DbConfig.get().getConnect().getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             try {
                 connection.setAutoCommit(false);
@@ -56,7 +56,7 @@ public class QueryWrapper {
 
     public static <T extends BaseEntity> T getSingleWrap(FillingStatement executor, Parcelable<T> parcelable, String sql) {
         T result = null;
-        try (Connection connection = Config.get().getStorage().getConnection();
+        try (Connection connection = DbConfig.get().getConnect().getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             executor.state(statement);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -73,7 +73,7 @@ public class QueryWrapper {
 
     public static <T extends BaseEntity> List<T> getListWrap(FillingStatement executor, Parcelable<T> parcelable, String sql) {
         List<T> result = new ArrayList<>();
-        try (Connection connection = Config.get().getStorage().getConnection();
+        try (Connection connection = DbConfig.get().getConnect().getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             executor.state(statement);
             try (ResultSet resultSet = statement.executeQuery()) {

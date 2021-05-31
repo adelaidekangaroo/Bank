@@ -11,13 +11,13 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.stream.Collectors;
 
-public class DbConfig {
+public class DbConnect {
 
     private final ConnectionFactory connectionFactory;
     private final String initScript;
     private final String populateScript;
 
-    public DbConfig(
+    public DbConnect(
             final String url,
             final String username,
             final String password,

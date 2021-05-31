@@ -1,4 +1,4 @@
-package org.sberbank.simonov.bank.util;
+package org.sberbank.simonov.bank.util.config;
 
 import java.io.File;
 import java.io.FileInputStream;
